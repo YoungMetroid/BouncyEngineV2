@@ -155,6 +155,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DataStructureVisualization\DataStructureEventSystem.cpp" />
+    <ClCompile Include="DataStructureVisualization\linkedList.cpp" />
+    <ClCompile Include="DataStructureVisualization\main.cpp" />
     <ClCompile Include="Event_System.cpp" />
     <ClCompile Include="Init_Allegro.cpp" />
     <ClCompile Include="keyBoardEvent.cpp" />
@@ -164,6 +167,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Allegro_Dependencies.h" />
+    <ClInclude Include="DataStructureVisualization\DataStructureEventSystem.h" />
+    <ClInclude Include="DataStructureVisualization\linkedList.h" />
+    <ClInclude Include="DataStructureVisualization\node.h" />
     <ClInclude Include="Event_System.h" />
     <ClInclude Include="Init_Allegro.h" />
     <ClInclude Include="keyBoardEvent.h" />

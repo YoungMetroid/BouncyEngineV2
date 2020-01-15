@@ -43,8 +43,8 @@ void Init_Allegro::initialize(void)
 	FONT = al_load_ttf_font(MANAFONT, 18, NULL);
 
 	EVENTQUEUE = al_create_event_queue();
-	TIMER = al_create_timer(1.0 / 60.0);
-	FRAMETIMER = al_create_timer(1.0 / 30.0);
+	TIMER = al_create_timer(1.0 / FPS);
+	FRAMETIMER = al_create_timer(1.0 / frameFPS);
 
 	al_register_event_source(EVENTQUEUE, al_get_timer_event_source(TIMER));
 	al_register_event_source(EVENTQUEUE, al_get_timer_event_source(FRAMETIMER));

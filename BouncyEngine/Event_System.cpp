@@ -1,8 +1,7 @@
 #include "Event_System.h"
 
-int Event_System::width;
-int Event_System::height;
-Event_System::Event_System(int width,int height):gameLoop(false)
+
+Event_System::Event_System(int width,int height):gameLoop(false),currentEvent(0)
 {
 	textWindow = nullptr;
 	this->width = width;
@@ -44,7 +43,7 @@ void Event_System::startGame(void)
 				}
 				if (keyBoardEvent::returnEvent().type == ALLEGRO_EVENT_TIMER)
 				{
-					if (keyBoardEvent::returnEvent().timer.source == Init_Allegro::FRAMETIMER);
+					if (keyBoardEvent::returnEvent().timer.source == Init_Allegro::FRAMETIMER)
 					{	
 						currentEvent = textWindow->getEvent();
 						if (currentEvent == Init_Allegro::allEvents::normal)
@@ -56,7 +55,6 @@ void Event_System::startGame(void)
 					textWindow->drawText(keyPressed);
 					al_flip_display();
 				}
-				
 				break;
 		}
 		

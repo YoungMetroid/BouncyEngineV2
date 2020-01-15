@@ -11,7 +11,7 @@ TextWindow::TextWindow(int startingXCoordinate, int startingYCoordinate,
 	this->endingXCoordinate = endingXCoordinate;
 	this->endingYCoordinate = endingYCoordinate;
 
-	text.push_back({ { { "This is the first Line" }, {"This should be the second line"} } });
+	text.push_back({ { { "Please enter the size of the linkedList to generate" } } });
 }
 TextWindow::~TextWindow()
 {
