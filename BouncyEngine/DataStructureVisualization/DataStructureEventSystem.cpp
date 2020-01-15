@@ -19,17 +19,22 @@
  }
  void DataStructureEventSystem::menuEvent()
  {
-     //textWindow->drawText(0);
+     al_clear_to_color(al_map_rgb(0, 0, 0));
+     if (textWindow->getDoneDrawingText())
+     {
+         textWindow->getUserInput();
+     }
      if (keyBoardEvent::returnEvent().type == ALLEGRO_EVENT_TIMER)
      {
+        
          if (keyBoardEvent::returnEvent().timer.source == Init_Allegro::FRAMETIMER)
          {
             //currentEvent = textWindow->getEvent();
-             al_clear_to_color(al_map_rgb(0, 0, 0));
+             draw = true;
+               
+         }  
              textWindow->drawText(0);
              al_flip_display();
-            
-         }
          
      }
  }

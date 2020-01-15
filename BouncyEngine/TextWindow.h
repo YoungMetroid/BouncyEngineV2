@@ -9,6 +9,7 @@
 class TextWindow:Window
 {
 private:
+	bool doneDrawingText = false;
 	std::string name;
 	int currentEvent = 1;
 	int columncount = 0;
@@ -27,7 +28,9 @@ public:
 		int endingXCoordinate, int endingYCoordinate);
 	~TextWindow();
 	void getUserInput();
+	bool getDoneDrawingText();
 	void drawText(int keyPressed);
+	void drawCurrentText();
 	void drawUserInput();
 	void drawWindow();
 	int getEvent();

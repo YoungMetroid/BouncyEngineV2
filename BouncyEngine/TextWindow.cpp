@@ -11,7 +11,7 @@ TextWindow::TextWindow(int startingXCoordinate, int startingYCoordinate,
 	this->endingXCoordinate = endingXCoordinate;
 	this->endingYCoordinate = endingYCoordinate;
 
-	text.push_back({ { { "Please enter the size of the linkedList to generate" } } });
+	text.push_back({ { { "Please enter the size of"} ,{"the linkedList to generate" } } });
 }
 TextWindow::~TextWindow()
 {
@@ -67,9 +67,37 @@ void TextWindow::drawText(int keyPressed)
 				al_draw_text(Init_Allegro::FONT, al_map_rgb(255, 255, 255), 640 * 0.1, (480 / 4), ALLEGRO_ALIGN_LEFT, printText[0].c_str());
 				al_draw_text(Init_Allegro::FONT, al_map_rgb(255, 255, 255), 640 * 0.1, (480 / 4) + 20, ALLEGRO_ALIGN_LEFT, printText[1].c_str());
 				al_draw_text(Init_Allegro::FONT, al_map_rgb(255, 255, 255), 640 * 0.1, (480 / 4) + 40, ALLEGRO_ALIGN_LEFT, printText[2].c_str());
+				
 				break;
-		
 		}
+		if (rowCount == text[0].size())
+		{
+			doneDrawingText = true;
+		}
+	}
+}
+void TextWindow::drawCurrentText()
+{
+	switch (rowCount)
+	{
+	case 0:
+		al_draw_text(Init_Allegro::FONT, al_map_rgb(255, 255, 255), 640 * 0.1, (480 / 4), ALLEGRO_ALIGN_LEFT, currentText.c_str());
+		break;
+	case 1:
+		al_draw_text(Init_Allegro::FONT, al_map_rgb(255, 255, 255), 640 * 0.1, (480 / 4), ALLEGRO_ALIGN_LEFT, printText[0].c_str());
+		al_draw_text(Init_Allegro::FONT, al_map_rgb(255, 255, 255), 640 * 0.1, (480 / 4) + 20, ALLEGRO_ALIGN_LEFT, currentText.c_str());
+		break;
+	case 2:
+		al_draw_text(Init_Allegro::FONT, al_map_rgb(255, 255, 255), 640 * 0.1, (480 / 4), ALLEGRO_ALIGN_LEFT, printText[0].c_str());
+		al_draw_text(Init_Allegro::FONT, al_map_rgb(255, 255, 255), 640 * 0.1, (480 / 4) + 20, ALLEGRO_ALIGN_LEFT, printText[1].c_str());
+		al_draw_text(Init_Allegro::FONT, al_map_rgb(255, 255, 255), 640 * 0.1, (480 / 4) + 40, ALLEGRO_ALIGN_LEFT, currentText.c_str());
+		break;
+	case 3:
+		al_draw_text(Init_Allegro::FONT, al_map_rgb(255, 255, 255), 640 * 0.1, (480 / 4), ALLEGRO_ALIGN_LEFT, printText[0].c_str());
+		al_draw_text(Init_Allegro::FONT, al_map_rgb(255, 255, 255), 640 * 0.1, (480 / 4) + 20, ALLEGRO_ALIGN_LEFT, printText[1].c_str());
+		al_draw_text(Init_Allegro::FONT, al_map_rgb(255, 255, 255), 640 * 0.1, (480 / 4) + 40, ALLEGRO_ALIGN_LEFT, printText[2].c_str());
+		break;
+
 	}
 }
 void TextWindow::drawUserInput()
@@ -79,7 +107,10 @@ void TextWindow::drawUserInput()
 		640 / 2, (480 / 4),
 		ALLEGRO_ALIGN_LEFT, name.c_str());
 }
-
+bool TextWindow::getDoneDrawingText()
+{
+	return doneDrawingText;
+}
 void TextWindow::getUserInput()
 {
 	int keyCode = 0; 
@@ -87,6 +118,7 @@ void TextWindow::getUserInput()
 	if (keyBoardEvent::returnEvent().type == ALLEGRO_EVENT_KEY_UP)
 	{
 		keyCode = keyBoardEvent::returnEvent().keyboard.keycode;
+		std::cout << keyCode << std::endl;
 		if(keyCode <= 26)
 		{
 			name += (static_cast <char>('a' - 1 + keyBoardEvent::returnEvent().keyboard.keycode));
