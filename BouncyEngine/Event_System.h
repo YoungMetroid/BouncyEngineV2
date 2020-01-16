@@ -7,13 +7,14 @@
 #include <string>
 
 
+
 using namespace std;
 class Event_System
 {
-private:
+protected:
 	bool gameLoop;
-	static int width;
-	static int height;
+	int width;
+	int height;
 	int currentEvent;
 	int keyPressed = 0;
 	

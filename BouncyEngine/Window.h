@@ -12,5 +12,6 @@ protected:
 public:
 	virtual void  setWindowCoordinate(int startingXCoordinate, int startingYCoordinate,
 		int endingXCoordinate, int endingYCoordinate);
+	
 
 };

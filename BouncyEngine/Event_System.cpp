@@ -1,8 +1,7 @@
 #include "Event_System.h"
 
-int Event_System::width;
-int Event_System::height;
-Event_System::Event_System(int width,int height):gameLoop(false)
+
+Event_System::Event_System(int width,int height):gameLoop(false),currentEvent(0)
 {
 	textWindow = nullptr;
 	this->width = width;
@@ -48,12 +47,12 @@ void Event_System::startGame(void)
 					{	
 						currentEvent = textWindow->getEvent();
 						if (currentEvent == Init_Allegro::allEvents::normal)
-						{
+							{
 							keyPressed = 0;
 						}
 					}
 					al_clear_to_color(al_map_rgb(0, 0, 0));
-					textWindow->drawText(keyPressed);
+					//textWindow->drawText();
 					al_flip_display();
 				}
 				break;

@@ -4,11 +4,15 @@
 #include "keyBoardEvent.h"
 #include "Init_Allegro.h"
 #include <iostream>
+#include <algorithm>
+#include <cctype>
+#include <string>
 #include <vector>
 
 class TextWindow:Window
 {
 private:
+	bool doneDrawingText = false;
 	std::string name;
 	int currentEvent = 1;
 	int columncount = 0;
@@ -27,7 +31,9 @@ public:
 		int endingXCoordinate, int endingYCoordinate);
 	~TextWindow();
 	void getUserInput();
-	void drawText(int keyPressed);
+	bool getDoneDrawingText();
+	void drawText(int,int);
+	void drawCurrentText(int,int);
 	void drawUserInput();
 	void drawWindow();
 	int getEvent();
