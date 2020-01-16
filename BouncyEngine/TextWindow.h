@@ -29,8 +29,8 @@ public:
 	~TextWindow();
 	void getUserInput();
 	bool getDoneDrawingText();
-	void drawText(int keyPressed);
-	void drawCurrentText();
+	void drawText(int,int);
+	void drawCurrentText(int,int);
 	void drawUserInput();
 	void drawWindow();
 	int getEvent();

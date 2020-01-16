@@ -9,6 +9,7 @@ public:
 	DataStructureEventSystem(int width, int height);
 	void startGame();
 	void menuEvent();
+	void clearScreen();
 	
 };
 

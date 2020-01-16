@@ -12,6 +12,11 @@ TextWindow::TextWindow(int startingXCoordinate, int startingYCoordinate,
 	this->endingYCoordinate = endingYCoordinate;
 
 	text.push_back({ { { "Please enter the size of"} ,{"the linkedList to generate" } } });
+	std::cout << "StartingXCoordinate: " << this->startingXCoordinate << std::endl;
+	std::cout << "StartingYCoordinate: " << this->startingYCoordinate << std::endl;
+	std::cout << "EndingXCoordinate: " << this->endingXCoordinate << std::endl;
+	std::cout << "EndingYCoordinate: " << this->endingYCoordinate << std::endl;
+
 }
 TextWindow::~TextWindow()
 {
@@ -25,7 +30,7 @@ void TextWindow::drawWindow()
 		0.5, 0.5,
 		al_map_rgb(50, 50, 50));
 }
-void TextWindow::drawText(int keyPressed) 
+void TextWindow::drawText(int xOffSet, int yOffSet) 
 {
 	if (text.size() > 0)
 	{
@@ -44,29 +49,34 @@ void TextWindow::drawText(int keyPressed)
 				columncount = 0;
 			}
 		}
-		if (keyPressed == ALLEGRO_KEY_ENTER)
-		{
-			currentEvent = Init_Allegro::allEvents::normal;
-		}
 
 		switch (rowCount)
 		{
 			case 0:
-				al_draw_text(Init_Allegro::FONT, al_map_rgb(255, 255, 255), 640 * 0.1, (480 / 4), ALLEGRO_ALIGN_LEFT, currentText.c_str());
+				al_draw_text(Init_Allegro::FONT, al_map_rgb(255, 255, 255), 
+					this->startingXCoordinate+xOffSet, this->startingYCoordinate+yOffSet, ALLEGRO_ALIGN_LEFT, currentText.c_str());
 				break;
 			case 1:
-				al_draw_text(Init_Allegro::FONT, al_map_rgb(255, 255, 255), 640 * 0.1, (480 / 4), ALLEGRO_ALIGN_LEFT, printText[0].c_str());
-				al_draw_text(Init_Allegro::FONT, al_map_rgb(255, 255, 255), 640 * 0.1, (480 / 4) + 20, ALLEGRO_ALIGN_LEFT, currentText.c_str());
+				al_draw_text(Init_Allegro::FONT, al_map_rgb(255, 255, 255), 
+					this->startingXCoordinate + xOffSet, this->startingYCoordinate + yOffSet, ALLEGRO_ALIGN_LEFT, printText[0].c_str());
+				al_draw_text(Init_Allegro::FONT, al_map_rgb(255, 255, 255), 
+					this->startingXCoordinate + xOffSet, this->startingYCoordinate + yOffSet + 20, ALLEGRO_ALIGN_LEFT, currentText.c_str());
 				break;
 			case 2:
-				al_draw_text(Init_Allegro::FONT, al_map_rgb(255, 255, 255), 640 * 0.1, (480 / 4), ALLEGRO_ALIGN_LEFT, printText[0].c_str());
-				al_draw_text(Init_Allegro::FONT, al_map_rgb(255, 255, 255), 640 * 0.1, (480 / 4) + 20, ALLEGRO_ALIGN_LEFT, printText[1].c_str());
-				al_draw_text(Init_Allegro::FONT, al_map_rgb(255, 255, 255), 640 * 0.1, (480 / 4) + 40, ALLEGRO_ALIGN_LEFT, currentText.c_str());
+				al_draw_text(Init_Allegro::FONT, al_map_rgb(255, 255, 255),
+					this->startingXCoordinate + xOffSet, this->startingYCoordinate + yOffSet, ALLEGRO_ALIGN_LEFT, printText[0].c_str());
+				al_draw_text(Init_Allegro::FONT, al_map_rgb(255, 255, 255), 
+					this->startingXCoordinate + xOffSet, this->startingYCoordinate + yOffSet + 20, ALLEGRO_ALIGN_LEFT, printText[1].c_str());
+				al_draw_text(Init_Allegro::FONT, al_map_rgb(255, 255, 255), 
+					this->startingXCoordinate + xOffSet, this->startingYCoordinate + yOffSet + 40, ALLEGRO_ALIGN_LEFT, currentText.c_str());
 				break;
 			case 3:
-				al_draw_text(Init_Allegro::FONT, al_map_rgb(255, 255, 255), 640 * 0.1, (480 / 4), ALLEGRO_ALIGN_LEFT, printText[0].c_str());
-				al_draw_text(Init_Allegro::FONT, al_map_rgb(255, 255, 255), 640 * 0.1, (480 / 4) + 20, ALLEGRO_ALIGN_LEFT, printText[1].c_str());
-				al_draw_text(Init_Allegro::FONT, al_map_rgb(255, 255, 255), 640 * 0.1, (480 / 4) + 40, ALLEGRO_ALIGN_LEFT, printText[2].c_str());
+				al_draw_text(Init_Allegro::FONT, al_map_rgb(255, 255, 255),
+					this->startingXCoordinate + xOffSet, this->startingYCoordinate + yOffSet, ALLEGRO_ALIGN_LEFT, printText[0].c_str());
+				al_draw_text(Init_Allegro::FONT, al_map_rgb(255, 255, 255),
+					this->startingXCoordinate + xOffSet, this->startingYCoordinate + yOffSet + 20, ALLEGRO_ALIGN_LEFT, printText[1].c_str());
+				al_draw_text(Init_Allegro::FONT, al_map_rgb(255, 255, 255),
+					this->startingXCoordinate + xOffSet, this->startingYCoordinate + yOffSet + 40, ALLEGRO_ALIGN_LEFT, printText[2].c_str());
 				
 				break;
 		}
@@ -76,35 +86,45 @@ void TextWindow::drawText(int keyPressed)
 		}
 	}
 }
-void TextWindow::drawCurrentText()
+void TextWindow::drawCurrentText(int xOffSet, int yOffSet)
 {
 	switch (rowCount)
 	{
 	case 0:
-		al_draw_text(Init_Allegro::FONT, al_map_rgb(255, 255, 255), 640 * 0.1, (480 / 4), ALLEGRO_ALIGN_LEFT, currentText.c_str());
+		al_draw_text(Init_Allegro::FONT, al_map_rgb(255, 255, 255),
+			this->startingXCoordinate + xOffSet, this->startingYCoordinate + yOffSet, ALLEGRO_ALIGN_LEFT, currentText.c_str());
 		break;
 	case 1:
-		al_draw_text(Init_Allegro::FONT, al_map_rgb(255, 255, 255), 640 * 0.1, (480 / 4), ALLEGRO_ALIGN_LEFT, printText[0].c_str());
-		al_draw_text(Init_Allegro::FONT, al_map_rgb(255, 255, 255), 640 * 0.1, (480 / 4) + 20, ALLEGRO_ALIGN_LEFT, currentText.c_str());
+		al_draw_text(Init_Allegro::FONT, al_map_rgb(255, 255, 255),
+			this->startingXCoordinate + xOffSet, this->startingYCoordinate + yOffSet, ALLEGRO_ALIGN_LEFT, printText[0].c_str());
+		al_draw_text(Init_Allegro::FONT, al_map_rgb(255, 255, 255),
+			this->startingXCoordinate + xOffSet, this->startingYCoordinate + yOffSet + 20, ALLEGRO_ALIGN_LEFT, currentText.c_str());
 		break;
 	case 2:
-		al_draw_text(Init_Allegro::FONT, al_map_rgb(255, 255, 255), 640 * 0.1, (480 / 4), ALLEGRO_ALIGN_LEFT, printText[0].c_str());
-		al_draw_text(Init_Allegro::FONT, al_map_rgb(255, 255, 255), 640 * 0.1, (480 / 4) + 20, ALLEGRO_ALIGN_LEFT, printText[1].c_str());
-		al_draw_text(Init_Allegro::FONT, al_map_rgb(255, 255, 255), 640 * 0.1, (480 / 4) + 40, ALLEGRO_ALIGN_LEFT, currentText.c_str());
+		al_draw_text(Init_Allegro::FONT, al_map_rgb(255, 255, 255),
+			this->startingXCoordinate + xOffSet, this->startingYCoordinate + yOffSet, ALLEGRO_ALIGN_LEFT, printText[0].c_str());
+		al_draw_text(Init_Allegro::FONT, al_map_rgb(255, 255, 255),
+			this->startingXCoordinate + xOffSet, this->startingYCoordinate + yOffSet + 20, ALLEGRO_ALIGN_LEFT, printText[1].c_str());
+		al_draw_text(Init_Allegro::FONT, al_map_rgb(255, 255, 255),
+			this->startingXCoordinate + xOffSet, this->startingYCoordinate + yOffSet + 40, ALLEGRO_ALIGN_LEFT, currentText.c_str());
 		break;
 	case 3:
-		al_draw_text(Init_Allegro::FONT, al_map_rgb(255, 255, 255), 640 * 0.1, (480 / 4), ALLEGRO_ALIGN_LEFT, printText[0].c_str());
-		al_draw_text(Init_Allegro::FONT, al_map_rgb(255, 255, 255), 640 * 0.1, (480 / 4) + 20, ALLEGRO_ALIGN_LEFT, printText[1].c_str());
-		al_draw_text(Init_Allegro::FONT, al_map_rgb(255, 255, 255), 640 * 0.1, (480 / 4) + 40, ALLEGRO_ALIGN_LEFT, printText[2].c_str());
-		break;
+		al_draw_text(Init_Allegro::FONT, al_map_rgb(255, 255, 255),
+			this->startingXCoordinate + xOffSet, this->startingYCoordinate + yOffSet, ALLEGRO_ALIGN_LEFT, printText[0].c_str());
+		al_draw_text(Init_Allegro::FONT, al_map_rgb(255, 255, 255),
+			this->startingXCoordinate + xOffSet, this->startingYCoordinate + yOffSet + 20, ALLEGRO_ALIGN_LEFT, printText[1].c_str());
+		al_draw_text(Init_Allegro::FONT, al_map_rgb(255, 255, 255),
+			this->startingXCoordinate + xOffSet, this->startingYCoordinate + yOffSet + 40, ALLEGRO_ALIGN_LEFT, printText[2].c_str());
 
+		break;
 	}
 }
 void TextWindow::drawUserInput()
 {
-	al_draw_text(
+	if(name.size() > 0)
+		al_draw_text(
 		Init_Allegro::FONT, al_map_rgb(255, 255, 255),
-		640 / 2, (480 / 4),
+		this->startingXCoordinate, this->startingYCoordinate + 70,
 		ALLEGRO_ALIGN_LEFT, name.c_str());
 }
 bool TextWindow::getDoneDrawingText()
@@ -121,8 +141,20 @@ void TextWindow::getUserInput()
 		std::cout << keyCode << std::endl;
 		if(keyCode <= 26)
 		{
+			int value = 'a' - 1;
+			std::cout << value<< std::endl;
 			name += (static_cast <char>('a' - 1 + keyBoardEvent::returnEvent().keyboard.keycode));
-			al_draw_text(Init_Allegro::FONT, al_map_rgb(255, 255, 255), 640 / 2, (480 / 4), ALLEGRO_ALIGN_LEFT, name.c_str());
+			//al_draw_text(Init_Allegro::FONT, al_map_rgb(255, 255, 255), 640 / 2, (480 / 4), ALLEGRO_ALIGN_LEFT, name.c_str());
+		}
+		else if (keyCode <= ALLEGRO_KEY_9)
+		{
+			int value = '0' -21;
+			std::cout << value << std::endl;
+			name += (static_cast <char>('0' - 27 + keyBoardEvent::returnEvent().keyboard.keycode));
+		}
+		else if (keyCode <= ALLEGRO_KEY_PAD_9)
+		{
+			name += (static_cast <char>('0' - 37 + keyBoardEvent::returnEvent().keyboard.keycode));
 		}
 		else if (keyCode == ALLEGRO_KEY_BACKSPACE or keyCode == ALLEGRO_KEY_DELETE)
 		{
