@@ -3,7 +3,7 @@
 #include "Allegro_Dependencies.h"
 
 #define FPS 60
-#define frameFPS 30
+#define frameFPS 60
 class Init_Allegro
 {
 private:

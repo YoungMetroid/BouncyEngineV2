@@ -16,8 +16,5 @@ int main()
 	Init_Allegro::startTimers();
 	event.startGame();
 
-	
-
-	
 	return 0;
 }

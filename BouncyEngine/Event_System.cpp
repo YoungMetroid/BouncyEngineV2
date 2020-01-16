@@ -44,7 +44,7 @@ void Event_System::startGame(void)
 				}
 				if (keyBoardEvent::returnEvent().type == ALLEGRO_EVENT_TIMER)
 				{
-					if (keyBoardEvent::returnEvent().timer.source == Init_Allegro::FRAMETIMER);
+					if (keyBoardEvent::returnEvent().timer.source == Init_Allegro::FRAMETIMER)
 					{	
 						currentEvent = textWindow->getEvent();
 						if (currentEvent == Init_Allegro::allEvents::normal)
@@ -56,10 +56,8 @@ void Event_System::startGame(void)
 					textWindow->drawText(keyPressed);
 					al_flip_display();
 				}
-				
 				break;
 		}
-		
 	}
 }
 void Event_System::createName(void)
