@@ -1,5 +1,6 @@
 #include "TextWindow.h"
 
+
 //ALLEGRO_FONT* Init_Allegro::FONT;
 enum Init_Allegro::allEvents;
 
@@ -141,15 +142,10 @@ void TextWindow::getUserInput()
 		std::cout << keyCode << std::endl;
 		if(keyCode <= 26)
 		{
-			int value = 'a' - 1;
-			std::cout << value<< std::endl;
 			name += (static_cast <char>('a' - 1 + keyBoardEvent::returnEvent().keyboard.keycode));
-			//al_draw_text(Init_Allegro::FONT, al_map_rgb(255, 255, 255), 640 / 2, (480 / 4), ALLEGRO_ALIGN_LEFT, name.c_str());
 		}
 		else if (keyCode <= ALLEGRO_KEY_9)
 		{
-			int value = '0' -21;
-			std::cout << value << std::endl;
 			name += (static_cast <char>('0' - 27 + keyBoardEvent::returnEvent().keyboard.keycode));
 		}
 		else if (keyCode <= ALLEGRO_KEY_PAD_9)
@@ -163,7 +159,24 @@ void TextWindow::getUserInput()
 		}
 		else if (keyCode == ALLEGRO_KEY_ENTER)
 		{
-			currentEvent = Init_Allegro::allEvents::normal;
+			bool flag = std::all_of(name.begin(), name.end(), ::isdigit);
+			std::cout << "Flag: " << flag << std::endl;
+			if (name.size() > 0)
+			{
+				try 
+				{
+					int inputConversion = std::stoi(name);
+					if (inputConversion > 1 && inputConversion < 10000)
+					{
+						currentEvent = Init_Allegro::allEvents::normal;
+						std::cout << "Successfull" << std::endl;
+					}
+				}
+				catch (std::exception ex)
+				{
+					std::cout << ex.what() << std::endl;
+				}
+			}
 		}
 	}
 }

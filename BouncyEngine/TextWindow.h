@@ -4,6 +4,9 @@
 #include "keyBoardEvent.h"
 #include "Init_Allegro.h"
 #include <iostream>
+#include <algorithm>
+#include <cctype>
+#include <string>
 #include <vector>
 
 class TextWindow:Window
