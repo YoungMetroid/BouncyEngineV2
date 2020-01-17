@@ -16,7 +16,7 @@ public:
 	static ALLEGRO_KEYBOARD_STATE KEYSTATE;
 	static ALLEGRO_DISPLAY * DISPLAY;
 	static ALLEGRO_FONT* FONT;
-	static enum allEvents { normal, menu, dialog};
+	static enum allEvents { normal, menu, dialog, menu2};
 	static void initialize(void);
 	static void startTimers(void);
 	static ALLEGRO_TIMER* TIMER;

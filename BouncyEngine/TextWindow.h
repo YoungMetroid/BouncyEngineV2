@@ -14,7 +14,7 @@ class TextWindow:Window
 private:
 	bool doneDrawingText = false;
 	std::string name;
-	int currentEvent = 1;
+	int currentEvent = -1;
 	int columncount = 0;
 	
 	int rowCount = 0;
@@ -37,6 +37,7 @@ public:
 	void drawUserInput();
 	void drawWindow();
 	int getEvent();
+	void resetEvent();
 	void setEvent(int event);
 	void setTextObject(std::vector<std::vector<std::string>>characterText);
 	std::vector<std::vector<std::string>> getTextObject();

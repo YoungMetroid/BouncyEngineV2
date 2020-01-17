@@ -160,7 +160,6 @@ void TextWindow::getUserInput()
 		else if (keyCode == ALLEGRO_KEY_ENTER)
 		{
 			bool flag = std::all_of(name.begin(), name.end(), ::isdigit);
-			std::cout << "Flag: " << flag << std::endl;
 			if (name.size() > 0)
 			{
 				try 
@@ -168,8 +167,7 @@ void TextWindow::getUserInput()
 					int inputConversion = std::stoi(name);
 					if (inputConversion > 1 && inputConversion < 10000)
 					{
-						currentEvent = Init_Allegro::allEvents::normal;
-						std::cout << "Successfull" << std::endl;
+						currentEvent = Init_Allegro::allEvents::menu2;
 					}
 				}
 				catch (std::exception ex)
@@ -183,6 +181,10 @@ void TextWindow::getUserInput()
 int TextWindow::getEvent()
 {
 	return currentEvent;
+}
+void TextWindow::resetEvent()
+{
+	currentEvent = -1;
 }
 void TextWindow::setEvent(int event)
 {
