@@ -57,7 +57,6 @@ void Event_System::startGame(void)
 				}
 				break;
 		}
-		
 	}
 }
 void Event_System::createName(void)

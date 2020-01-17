@@ -30,6 +30,10 @@ int main()
 	Init_Allegro::initialize();
 	Init_Allegro::startTimers();
 	event.startGame();
+<<<<<<< HEAD
+
+=======
 	
+>>>>>>> e3ff02541548a996adf36f07bc8f42b89a185a4d
 	return 0;
 }
