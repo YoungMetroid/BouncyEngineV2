@@ -24,7 +24,6 @@ int main()
 	list->insert(15);
 
 	list->printList();
-	std::cin.get();
 	
 	DataStructureEventSystem event(640,480);
 	Init_Allegro::initialize();

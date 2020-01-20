@@ -13,4 +13,5 @@
 #define gameHeight 480
 
 static const char* MANAFONT = "Manaspc.ttf";
-
+static const char* menuFrame1 = "MenuTest.png";
+static const char* menuFrame2 = "TextMenu1.png";

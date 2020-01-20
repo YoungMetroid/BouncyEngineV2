@@ -40,6 +40,7 @@ void Init_Allegro::initialize(void)
 	al_init_font_addon(); // initialize the font addon
 	al_init_ttf_addon();// initialize the ttf (True Type Font) addon
 	al_init_primitives_addon();
+	al_init_image_addon();
 	FONT = al_load_ttf_font(MANAFONT, 18, NULL);
 
 	EVENTQUEUE = al_create_event_queue();

@@ -27,28 +27,48 @@ DataStructureEventSystem::DataStructureEventSystem(int width, int height) :Event
  {
      if (windowsList.size() == 0)
      {
-        TextWindow* window1 = new TextWindow(0, 0, (width / 2) - width * .05, height / 8);
-        TextWindow* window2 = new TextWindow((width / 2) + width * .05, 0, width, height / 8);
-        TextWindow* window3 = new TextWindow(0, height / 8, (width / 2) - width * .05, height / 4);
-        TextWindow* window4 = new TextWindow((width / 2) + width * .05, height / 8, width, height / 4);
+        std::cout << "Window1" << std::endl;
+        TextWindow* window1 = new TextWindow(0, 0, width/2, height*.25);
+        std::cout << "Window2" << std::endl;
+        TextWindow* window2 = new TextWindow(width/2, 0, (width / 2), height*.25);
+        std::cout << "Window3" << std::endl;
+        TextWindow* window3 = new TextWindow(0, height*.25, width/2, height*.25);
+        std::cout << "Window4" << std::endl;
+        TextWindow* window4 = new TextWindow((width / 2), height*.25, width/2, height*.25);
+        window1->loadText("Bubble Sort");
+        window2->loadText("Insertion Sort");
+        window3->loadText("Selection Sort");
+        window4->loadText("Sheel Sort");
         windowsList.push_back(window1);
         windowsList.push_back(window2);
         windowsList.push_back(window3);
         windowsList.push_back(window4);
      }
+     if (keyBoardEvent::returnEvent().type == ALLEGRO_EVENT_MOUSE_AXES)
+     {
+         
+     }
+
+     
      if (keyBoardEvent::returnEvent().type == ALLEGRO_EVENT_TIMER)
      {
-         windowsList[0]->drawWindow();
-         windowsList[1]->drawWindow();
-         windowsList[2]->drawWindow();
-         windowsList[3]->drawWindow();
-         al_flip_display();
+         for (TextWindow *textWindow : windowsList)
+         {
+             textWindow->drawWindow();
+             textWindow->drawInstantText();
+         }
+
+        al_flip_display();
      }
 
  }
  void DataStructureEventSystem::menuEvent()
  {
-     if (textWindow->getDoneDrawingText())
+     if(textWindow->getDoneDrawingParagraph() && !textWindow->isLastParagraph() &&keyBoardEvent::returnEvent().type == ALLEGRO_EVENT_KEY_UP)
+     { 
+         textWindow->nextTextSignal();
+     }
+     if (textWindow->getDoneDrawingAllText())
      {
          textWindow->getUserInput();
          if (textWindow->getEvent() != -1)
