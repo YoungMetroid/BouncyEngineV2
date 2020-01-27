@@ -74,11 +74,11 @@ void Event_System::mainGame(void)
 				break;
 			case ALLEGRO_KEY_ENTER:
 				currentEvent = Init_Allegro::allEvents::menu;
-				textWindow = new TextWindow(gameWidth / 4, gameHeight/4, gameWidth - (gameWidth / 4), gameHeight/3);
+				textWindow = new TextWindow(width / 4, height/4, width - (width / 4), height/3);
 				break;
 			case ALLEGRO_KEY_A:
 				currentEvent = Init_Allegro::allEvents::dialog;
-				textWindow = new TextWindow(gameWidth / 4, gameHeight / 4, gameWidth - (gameWidth / 4), gameHeight / 3);
+				textWindow = new TextWindow(width / 4, height / 4, width - (width / 4), height / 3);
 				textWindow->setEvent(currentEvent);
 				break;
 			default:

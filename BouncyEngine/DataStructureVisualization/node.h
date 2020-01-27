@@ -8,7 +8,7 @@ private:
 public:
 	node();
 	node<T> *nextNode;
-	int getData();
+	T getData();
 	void setNext(T);
 	void setInfo(T);
 	void printInfo();
@@ -38,7 +38,7 @@ node<T>* node<T>::getNode()
 	return nextNode;
 }
 template<class T>
-int node<T>::getData()
+T node<T>::getData()
 {
 	return data;
 }

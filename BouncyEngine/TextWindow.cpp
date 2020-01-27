@@ -83,7 +83,7 @@ void TextWindow::drawText(int xOffSet, int yOffSet)
 			if (rowCount == text[paragraghCount].size())
 			{
 				doneDrawingParagragh = true;
-				if (paragraghCount >= text.size()-1)
+				if (paragraghCount >= text.size()-1 && rowCount == text[paragraghCount].size())
 				{
 					lastParagragh = true;
 					doneDrawingAllText = true;
@@ -126,18 +126,18 @@ void TextWindow::drawCurrentText(int xOffSet, int yOffSet)
 }
 void TextWindow::drawInstantText()
 {
-	al_draw_text(Init_Allegro::FONT, al_map_rgb(255, 255, 255), 
+	al_draw_text(Init_Allegro::FONT, al_map_rgb(red, green, blue), 
 		this->startingXCoordinate + this->endingXCoordinate *.05, 
 		this->startingYCoordinate + this->endingYCoordinate /2,
 		ALLEGRO_ALIGN_LEFT, loadedText.c_str());
 }
 void TextWindow::drawUserInput()
 {
-	if(name.size() > 0)
+	if(userInput.size() > 0)
 		al_draw_text(
 		Init_Allegro::FONT, al_map_rgb(255, 255, 255),
 		this->startingXCoordinate, this->startingYCoordinate + 70,
-		ALLEGRO_ALIGN_LEFT, name.c_str());
+		ALLEGRO_ALIGN_LEFT, userInput.c_str());
 }
 bool TextWindow::getDoneDrawingAllText()
 {
@@ -151,7 +151,7 @@ bool TextWindow::isLastParagraph()
 {
 	return lastParagragh;
 }
-void TextWindow::getUserInput()
+std::string TextWindow::getUserInput()
 {
 	int keyCode = 0; 
 	
@@ -161,29 +161,31 @@ void TextWindow::getUserInput()
 		std::cout << keyCode << std::endl;
 		if(keyCode <= 26)
 		{
-			name += (static_cast <char>('a' - 1 + keyBoardEvent::returnEvent().keyboard.keycode));
+			userInput += (static_cast <char>('a' - 1 + keyBoardEvent::returnEvent().keyboard.keycode));
 		}
 		else if (keyCode <= ALLEGRO_KEY_9)
 		{
-			name += (static_cast <char>('0' - 27 + keyBoardEvent::returnEvent().keyboard.keycode));
+			userInput += (static_cast <char>('0' - 27 + keyBoardEvent::returnEvent().keyboard.keycode));
 		}
 		else if (keyCode <= ALLEGRO_KEY_PAD_9)
 		{
-			name += (static_cast <char>('0' - 37 + keyBoardEvent::returnEvent().keyboard.keycode));
+			userInput += (static_cast <char>('0' - 37 + keyBoardEvent::returnEvent().keyboard.keycode));
 		}
 		else if (keyCode == ALLEGRO_KEY_BACKSPACE or keyCode == ALLEGRO_KEY_DELETE)
 		{
-			if (name.size() > 0)
-			name.pop_back();
+			if (userInput.size() > 0)
+				userInput.pop_back();
 		}
 		else if (keyCode == ALLEGRO_KEY_ENTER)
 		{
-			bool flag = std::all_of(name.begin(), name.end(), ::isdigit);
-			if (name.size() > 0)
+			return userInput;
+
+			bool flag = std::all_of(userInput.begin(), userInput.end(), ::isdigit);
+			if (userInput.size() > 0)
 			{
 				try 
 				{
-					int inputConversion = std::stoi(name);
+					int inputConversion = std::stoi(userInput);
 					if (inputConversion > 1 && inputConversion < 10000)
 					{
 						currentEvent = Init_Allegro::allEvents::menu2;
@@ -196,6 +198,7 @@ void TextWindow::getUserInput()
 			}
 		}
 	}
+	return "";
 }
 int TextWindow::getEvent()
 {
@@ -211,17 +214,30 @@ void TextWindow::loadText(std::string text)
 {
 	loadedText = text;
 }
+bool TextWindow::mouseInArea(int x, int y)
+{
+	if(x >= startingXCoordinate &&
+		x <= startingXCoordinate + endingXCoordinate)
+		if (y >= startingYCoordinate &&
+			y <= startingYCoordinate + endingYCoordinate)
+		{
+			red = 20; green = 20; blue = 120;
+			return true;
+		}		
+	red = 255; green = 255; blue = 255;
+	return false;
+}
 void TextWindow::nextTextSignal()
 {
 	rowCount = 0;
 	paragraghCount++;
 	wait = false;
+	doneDrawingParagragh = false;
 	printText.clear();
-	
 }
 void TextWindow::resetEvent()
 {
-	currentEvent = -1;
+	userInput.clear();
 }
 void TextWindow::setEvent(int event)
 {

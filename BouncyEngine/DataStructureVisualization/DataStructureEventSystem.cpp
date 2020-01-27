@@ -12,12 +12,25 @@ DataStructureEventSystem::DataStructureEventSystem(int width, int height) :Event
          switch (currentEvent)
          {
          case 0:
-             if (textWindow == nullptr)
-                 textWindow = new TextWindow(0,0, gameWidth - (gameWidth / 4), gameHeight / 3);
+             if (menuWindow == nullptr)
+                 menuWindow = new DataStructureWindow("TextWindow",100,0,0, width - (width / 4), height / 3);
              menuEvent();
              break;
          case 3:
              sortingAlgorithmSelectionMenu();
+             break; 
+         case 4:
+                 menuWindow->drawBars();
+                 al_flip_display();
+             
+             break;
+         case 5:
+             std::cout << "Insert Sort" << std::endl;
+             break;
+         case 6:
+             std::cout << "Selection Sort" << std::endl;
+             break;
+         case 7: std::cout << "Shell Sort" << std::endl;
              break;
 
          }
@@ -28,17 +41,17 @@ DataStructureEventSystem::DataStructureEventSystem(int width, int height) :Event
      if (windowsList.size() == 0)
      {
         std::cout << "Window1" << std::endl;
-        TextWindow* window1 = new TextWindow(0, 0, width/2, height*.25);
+        DataStructureWindow* window1 = new DataStructureWindow("Bubble Sort", 4,0, 0, (width/2), height*.25);
         std::cout << "Window2" << std::endl;
-        TextWindow* window2 = new TextWindow(width/2, 0, (width / 2), height*.25);
+        DataStructureWindow* window2 = new DataStructureWindow("Insert Sort", 5, width/2, 0, (width / 2), height*.25);
         std::cout << "Window3" << std::endl;
-        TextWindow* window3 = new TextWindow(0, height*.25, width/2, height*.25);
+        DataStructureWindow* window3 = new DataStructureWindow("Selection", 6, 0, height*.25, width/2, height*.25);
         std::cout << "Window4" << std::endl;
-        TextWindow* window4 = new TextWindow((width / 2), height*.25, width/2, height*.25);
+        DataStructureWindow* window4 = new DataStructureWindow("Shell Sort", 7, (width / 2), height*.25, width/2, height*.25);
         window1->loadText("Bubble Sort");
         window2->loadText("Insertion Sort");
         window3->loadText("Selection Sort");
-        window4->loadText("Sheel Sort");
+        window4->loadText("Shell Sort");
         windowsList.push_back(window1);
         windowsList.push_back(window2);
         windowsList.push_back(window3);
@@ -46,10 +59,24 @@ DataStructureEventSystem::DataStructureEventSystem(int width, int height) :Event
      }
      if (keyBoardEvent::returnEvent().type == ALLEGRO_EVENT_MOUSE_AXES)
      {
-         
+        for (TextWindow* textWindow : windowsList)
+        {
+            textWindow->mouseInArea(keyBoardEvent::returnEvent().mouse.x,
+                keyBoardEvent::returnEvent().mouse.y);
+        }
      }
-
-     
+     if(keyBoardEvent::returnEvent().type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
+     {
+        if (keyBoardEvent::returnEvent().mouse.button == 1)
+        {
+            for (DataStructureWindow* textWindow : windowsList)
+            {
+               currentEvent =  textWindow->windowClicked(keyBoardEvent::returnEvent().mouse.x,
+                    keyBoardEvent::returnEvent().mouse.y,currentEvent);
+            }
+        }
+     }
+    
      if (keyBoardEvent::returnEvent().type == ALLEGRO_EVENT_TIMER)
      {
          for (TextWindow *textWindow : windowsList)
@@ -64,30 +91,29 @@ DataStructureEventSystem::DataStructureEventSystem(int width, int height) :Event
  }
  void DataStructureEventSystem::menuEvent()
  {
-     if(textWindow->getDoneDrawingParagraph() && !textWindow->isLastParagraph() &&keyBoardEvent::returnEvent().type == ALLEGRO_EVENT_KEY_UP)
+     if(menuWindow->getDoneDrawingParagraph() and !menuWindow->isLastParagraph() and keyBoardEvent::returnEvent().type == ALLEGRO_EVENT_KEY_UP)
      { 
-         textWindow->nextTextSignal();
+         menuWindow->nextTextSignal();
      }
-     if (textWindow->getDoneDrawingAllText())
+     if (menuWindow->getDoneDrawingAllText())
      {
-         textWindow->getUserInput();
-         if (textWindow->getEvent() != -1)
+         if (menuWindow->checkUserInput(menuWindow->number, 1, width))
          {
-             currentEvent = textWindow->getEvent();
-             textWindow->resetEvent();
+             currentEvent = 3;
+             menuWindow->resetEvent();
          }
      }
      if (keyBoardEvent::returnEvent().type == ALLEGRO_EVENT_TIMER)
      {
         if (keyBoardEvent::returnEvent().timer.source == Init_Allegro::FRAMETIMER)
         {
-            textWindow->drawText(10,10);
+            menuWindow->drawText(10,10);
         }   
         else
         {
-            textWindow->drawCurrentText(10,10);
+            menuWindow->drawCurrentText(10,10);
         }
-        textWindow->drawUserInput();
+        menuWindow->drawUserInput();
         al_flip_display();  
      }
  }
@@ -96,6 +122,14 @@ DataStructureEventSystem::DataStructureEventSystem(int width, int height) :Event
      if (keyBoardEvent::returnEvent().type == ALLEGRO_EVENT_TIMER)
      {
          al_clear_to_color(al_map_rgb(0, 0, 0));
+     }
+ }
+ void DataStructureEventSystem::createList()
+ {
+     if (keyBoardEvent::returnEvent().type == ALLEGRO_EVENT_TIMER)
+     {
+
+         al_flip_display();
      }
  }
 

@@ -1,11 +1,13 @@
 #pragma once
 #include "node.h"
+#include "../Init_Allegro.h"
 template <class T>
 class linkedList
 {
 private:
 	node<T>* last;
 	node<T>* anchor;
+	node<T>* next;
 	int counter = 0;
 public:
 
@@ -13,9 +15,27 @@ public:
 	void insert(T);
 	void printList();
 	void bubbleSort();
+	void bubbleSortVisual();
+	void resetNext();
+	T getNext();
 
 };
-
+template<class T>
+void linkedList<T>::resetNext()
+{
+	next = anchor;
+}
+template<class T>
+T linkedList<T>::getNext()
+{
+	if (next == nullptr)
+	{
+		return nullptr;
+	}
+	T value = next->getData();
+	next = next->getNode();
+	return value;
+}
 template<class T>
 linkedList<T>::linkedList()
 {
@@ -31,6 +51,7 @@ void linkedList<T>::insert(T data)
 		anchor = new node<T>();
 		anchor->setInfo(data);
 		last = anchor;
+		next = anchor;
 		counter++;
 	}
 	else
@@ -45,14 +66,13 @@ void linkedList<T>::insert(T data)
 template<class T>
 void linkedList<T>::printList()
 {
+	 std::cout << std::endl;
 	node<T>* tempNode = anchor;
 	while (tempNode != nullptr)
 	{
 		tempNode->printInfo();
 		tempNode = tempNode->getNode();
 	}
-
-	anchor->printInfo();
 	std::cout << "Counter: " << counter << std::endl;
 }
 template<class T>
@@ -72,6 +92,49 @@ void linkedList<T>::bubbleSort()
 			}
 			first = first->getNode();
 			second = second->getNode();
+		}
+	}
+}
+template<class T>
+void linkedList<T>::bubbleSortVisual()
+{
+	if (typeid(anchor->getData()) == typeid(visualBarsInfo*))
+	{
+		for (int i = 0; i < counter; i++)
+		{
+			node<T>* first = anchor;
+			node<T>* second = first->getNode();
+			visualBarsInfo* firstTemp = static_cast<visualBarsInfo*>(first->getData());
+			visualBarsInfo* secondTemp = static_cast<visualBarsInfo*>(second->getData());
+			for (int j = i + 1; j < counter; j++)
+			{
+				if (firstTemp->getvalue() > secondTemp->getvalue())
+				{
+					firstTemp->clearBar();
+					secondTemp->clearBar();
+
+					visualBarsInfo* third = firstTemp;
+					firstTemp = secondTemp;
+					secondTemp = third;
+
+					int value = firstTemp->xposition;
+					firstTemp->xposition = secondTemp->xposition;
+					secondTemp->xposition = value;
+					
+					first->setInfo(firstTemp);
+					second->setInfo(secondTemp);
+
+					
+					firstTemp->drawBar();
+					secondTemp->drawBar();
+					al_flip_display();
+				}
+				first = first->getNode();
+				firstTemp = static_cast<visualBarsInfo*>(first->getData());
+				second = second->getNode();
+				if (second == nullptr) return;
+				secondTemp = static_cast<visualBarsInfo*>(second->getData());
+			}
 		}
 	}
 }

@@ -16,15 +16,23 @@ private:
 	bool doneDrawingParagragh = false;
 	bool lastParagragh = false;
 	bool wait = false;
-	std::string name;
+	
 	int currentEvent = -1;
 	int columncount = 0;
+
+	short red = 255;
+	short green = 255;
+	short blue = 255;
 	
 	int rowCount = 0;
 	int paragraghCount = 0;
 
 	float imageWidth = 0;
 	float imageHeight = 0;
+
+
+	std::string userInput;
+	
 
 	ALLEGRO_BITMAP* windowFrame;
 	std::string loadedText;
@@ -38,7 +46,7 @@ public:
 	TextWindow(int startingXCoordinate, int startingYCoordinate,
 		int endingXCoordinate, int endingYCoordinate);
 	~TextWindow();
-	void getUserInput();
+	std::string getUserInput();
 	bool getDoneDrawingAllText();
 	bool getDoneDrawingParagraph();
 	bool isLastParagraph();
@@ -51,6 +59,7 @@ public:
 	int getEvent();
 	void loadImage(const char*);
 	void loadText(std::string);
+	bool mouseInArea(int,int);
 	void resetEvent();
 	void setEvent(int event);
 	
