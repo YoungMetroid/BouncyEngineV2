@@ -12,14 +12,30 @@
 class TextWindow:Window
 {
 private:
-	bool doneDrawingText = false;
-	std::string name;
-	int currentEvent = 1;
+	bool doneDrawingAllText = false;
+	bool doneDrawingParagragh = false;
+	bool lastParagragh = false;
+	bool wait = false;
+	
+	int currentEvent = -1;
 	int columncount = 0;
+
+	short red = 255;
+	short green = 255;
+	short blue = 255;
 	
 	int rowCount = 0;
 	int paragraghCount = 0;
 
+	float imageWidth = 0;
+	float imageHeight = 0;
+
+
+	std::string userInput;
+	
+
+	ALLEGRO_BITMAP* windowFrame;
+	std::string loadedText;
 	std::string currentText;
 	std::vector<std::string> printText;
 	std::string textLine1;
@@ -30,14 +46,23 @@ public:
 	TextWindow(int startingXCoordinate, int startingYCoordinate,
 		int endingXCoordinate, int endingYCoordinate);
 	~TextWindow();
-	void getUserInput();
-	bool getDoneDrawingText();
+	std::string getUserInput();
+	bool getDoneDrawingAllText();
+	bool getDoneDrawingParagraph();
+	bool isLastParagraph();
 	void drawText(int,int);
 	void drawCurrentText(int,int);
 	void drawUserInput();
 	void drawWindow();
+	void drawInstantText();
+	void nextTextSignal();
 	int getEvent();
+	void loadImage(const char*);
+	void loadText(std::string);
+	bool mouseInArea(int,int);
+	void resetEvent();
 	void setEvent(int event);
+	
 	void setTextObject(std::vector<std::vector<std::string>>characterText);
 	std::vector<std::vector<std::string>> getTextObject();
 

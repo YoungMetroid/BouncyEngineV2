@@ -7,6 +7,8 @@
  ALLEGRO_TIMER* Init_Allegro::FRAMETIMER;
  ALLEGRO_KEYBOARD_STATE Init_Allegro::KEYSTATE;
  ALLEGRO_FONT* Init_Allegro::FONT;
+ int Init_Allegro::width;
+ int Init_Allegro::height;
 
 Init_Allegro::Init_Allegro()
 {
@@ -18,13 +20,14 @@ Init_Allegro::~Init_Allegro()
 {
 }
 
-void Init_Allegro::initialize(void) 
+void Init_Allegro::initialize(int xWidth, int yHeight) 
 {
+	width = xWidth;
+	height= yHeight;
 	if (!al_init())
 		return;
 
-	DISPLAY = al_create_display(640, 480);
-	
+	DISPLAY = al_create_display(width, height);
 	if (!DISPLAY)
 	{
 		fprintf(stderr, "failed to create display!\n");
@@ -40,6 +43,7 @@ void Init_Allegro::initialize(void)
 	al_init_font_addon(); // initialize the font addon
 	al_init_ttf_addon();// initialize the ttf (True Type Font) addon
 	al_init_primitives_addon();
+	al_init_image_addon();
 	FONT = al_load_ttf_font(MANAFONT, 18, NULL);
 
 	EVENTQUEUE = al_create_event_queue();

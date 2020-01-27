@@ -42,10 +42,10 @@
     <ClCompile Include="DataStructureVisualization\DataStructureEventSystem.cpp">
       <Filter>DataStructureVisualization</Filter>
     </ClCompile>
-    <ClCompile Include="DataStructureVisualization\linkedList.cpp">
+    <ClCompile Include="DataStructureWindow.cpp">
       <Filter>DataStructureVisualization</Filter>
     </ClCompile>
-    <ClCompile Include="DataStructureVisualization\main.cpp">
+    <ClCompile Include="visualBarsInfo.cpp">
       <Filter>DataStructureVisualization</Filter>
     </ClCompile>
   </ItemGroup>
@@ -75,6 +75,12 @@
       <Filter>DataStructureVisualization</Filter>
     </ClInclude>
     <ClInclude Include="DataStructureVisualization\node.h">
+      <Filter>DataStructureVisualization</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructureWindow.h">
+      <Filter>DataStructureVisualization</Filter>
+    </ClInclude>
+    <ClInclude Include="visualBarsInfo.h">
       <Filter>DataStructureVisualization</Filter>
     </ClInclude>
   </ItemGroup>

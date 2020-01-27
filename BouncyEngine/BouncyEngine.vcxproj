@@ -167,13 +167,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DataStructureVisualization\DataStructureEventSystem.cpp" />
-    <ClCompile Include="DataStructureVisualization\linkedList.cpp" />
-    <ClCompile Include="DataStructureVisualization\main.cpp" />
+    <ClCompile Include="DataStructureWindow.cpp" />
     <ClCompile Include="Event_System.cpp" />
     <ClCompile Include="Init_Allegro.cpp" />
     <ClCompile Include="keyBoardEvent.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="TextWindow.cpp" />
+    <ClCompile Include="visualBarsInfo.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -181,10 +181,12 @@
     <ClInclude Include="DataStructureVisualization\DataStructureEventSystem.h" />
     <ClInclude Include="DataStructureVisualization\linkedList.h" />
     <ClInclude Include="DataStructureVisualization\node.h" />
+    <ClInclude Include="DataStructureWindow.h" />
     <ClInclude Include="Event_System.h" />
     <ClInclude Include="Init_Allegro.h" />
     <ClInclude Include="keyBoardEvent.h" />
     <ClInclude Include="TextWindow.h" />
+    <ClInclude Include="visualBarsInfo.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
