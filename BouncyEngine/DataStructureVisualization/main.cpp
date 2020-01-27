@@ -2,7 +2,7 @@
 #include "linkedList.h"
 #include <stdlib.h>
 #include <time.h>
-#include "../../BouncyEngineV2/BouncyEngine/Init_Allegro.h"
+#include "../Init_Allegro.h"
 #include "DataStructureEventSystem.h"
 
 int main(void)
@@ -17,11 +17,13 @@ int main(void)
 
 	srand(time(NULL));
 
-	
+	/*
 	for (int counter = 0; counter < 1000; counter++)
 	{
 		list->insert(rand() % 10000);
 	}
+	*/
+	
 	
 
 
