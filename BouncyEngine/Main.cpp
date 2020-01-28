@@ -15,6 +15,17 @@ int main()
 	std::string::size_type pos = std::string(buff).find_last_of("\\/");
 	std::cout << std::string(buff).substr(0, pos);
 	
+
+	linkedList<int> numberList;
+	numberList.insert(15);
+	numberList.insert(16);
+	numberList.insert(14);
+	numberList.insert(13);
+	numberList.insert(12);
+	numberList.insert(11);
+	numberList.bubbleSort();
+	numberList.printList();
+
 	linkedList<visualBarsInfo*>* list = new linkedList<visualBarsInfo*>();
 
 	list->insert(new visualBarsInfo(5,2,3,4));

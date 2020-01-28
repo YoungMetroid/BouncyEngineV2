@@ -17,6 +17,7 @@ public:
 	void bubbleSort();
 	void bubbleSortVisual();
 	void resetNext();
+	void swap(node<T>*, node<T>*);
 	T getNext();
 
 };
@@ -78,21 +79,27 @@ void linkedList<T>::printList()
 template<class T>
 void linkedList<T>::bubbleSort()
 {
-	for (int i = 0; i < counter; i++)
+	bool swapped = false;
+
+	for (int currentLoop = 0; currentLoop < counter; currentLoop++)
 	{
 		node<T>* first = anchor;
 		node<T>* second = first->getNode();
-		for (int j = i + 1; j < counter; j++)
+		while (second != nullptr)
 		{
 			if (first->getData() > second->getData())
 			{
-				int temp = first->getData();
-				first->setInfo(second->getData());
-				second->setInfo(temp);
+				swap(first, second);
+				//int temp = first->getData();
+				//first->setInfo(second->getData());
+				//second->setInfo(temp);
+				swapped = true;
 			}
 			first = first->getNode();
 			second = second->getNode();
 		}
+		if (!swapped) break;
+		swapped = false;
 	}
 }
 template<class T>
@@ -137,6 +144,13 @@ void linkedList<T>::bubbleSortVisual()
 			}
 		}
 	}
+}
+template<class T>
+void linkedList<T>::swap(node<T>*a, node<T>* b)
+{
+	node<T> *temp = b->getNode();
+	b->nextNode = a;
+	a->nextNode = temp;
 }
 
 
