@@ -29,8 +29,8 @@ void visualBarsInfo::clearBar()
 
 ALLEGRO_COLOR visualBarsInfo::generateRandomColor()
 {
-	unsigned char red = rand() % 255 + 1;
-	unsigned char green = rand() % 255 + 1;;
+	short red = rand() % 255 + 1;
+	short green = rand() % 255 + 1;;
 	short blue = rand() % 255 + 1;;
 	ALLEGRO_COLOR clr = al_map_rgb(red, green, blue);
 	return clr;

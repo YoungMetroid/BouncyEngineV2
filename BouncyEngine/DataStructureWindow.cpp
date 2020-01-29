@@ -58,9 +58,11 @@ int DataStructureWindow::getElementsToGenerate()
 
 void DataStructureWindow::drawBars()
 {
+	
 	if (currentCreatedElement < elementsToCreate)
 	{
 		int randomNumber = rand() % 1000 + 1;
+		std::cout << randomNumber << std::endl;
 		int calculatedHeight = normalize(1, 1000, 0, Init_Allegro::height, randomNumber);
 		visualBarsInfo* vbi = new visualBarsInfo(randomNumber, currentXStart, calculatedWidth, calculatedHeight);
 		list->insert(vbi);
@@ -76,7 +78,7 @@ void DataStructureWindow::drawBars()
 		currentCreatedElement++;
 		currentXStart += calculatedWidth;
 	}
-	else
+	if(currentCreatedElement >= elementsToCreate)
 	{
 		visualBarsInfo* currentBar;
 		while (currentBar = list->getNext())
