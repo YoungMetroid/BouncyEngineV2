@@ -17,7 +17,7 @@ public:
 	void bubbleSort();
 	void bubbleSortVisual();
 	void resetNext();
-	void swap(node<T>*, node<T>*);
+	void swapAndDraw(node<T>*, node<T>*, visualBarsInfo*, visualBarsInfo*);
 	T getNext();
 
 };
@@ -117,24 +117,7 @@ void linkedList<T>::bubbleSortVisual()
 			{
 				if (firstTemp->getvalue() > secondTemp->getvalue())
 				{
-					firstTemp->clearBar();
-					secondTemp->clearBar();
-
-					visualBarsInfo* third = firstTemp;
-					firstTemp = secondTemp;
-					secondTemp = third;
-
-					int value = firstTemp->xposition;
-					firstTemp->xposition = secondTemp->xposition;
-					secondTemp->xposition = value;
-					
-					first->setInfo(firstTemp);
-					second->setInfo(secondTemp);
-
-					
-					firstTemp->drawBar();
-					secondTemp->drawBar();
-					al_flip_display();
+					swapAndDraw(first, second, firstTemp, secondTemp);
 				}
 				first = first->getNode();
 				firstTemp = static_cast<visualBarsInfo*>(first->getData());
@@ -145,14 +128,25 @@ void linkedList<T>::bubbleSortVisual()
 		}
 	}
 }
-template<class T>
-void linkedList<T>::swap(node<T>*a, node<T>* b)
-{
-	node<T> *temp = b->getNode();
-	b->nextNode = a;
-	a->nextNode = temp;
-}
 
+
+	visualBarsInfo* tempInfo = aInfo;
+	aInfo = bInfo;
+	bInfo = tempInfo;
+
+	int tempPosition = aInfo->xposition;
+	aInfo->xposition = bInfo->xposition;
+	bInfo->xposition = tempPosition;
+
+	aNode->setInfo(aInfo);
+	bNode->setInfo(bInfo);
+
+	aInfo->drawBar();
+	bInfo->drawBar();
+	al_flip_display();
+
+
+}
 
 
 
