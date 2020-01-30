@@ -37,8 +37,8 @@ int main()
 
 	
 	
-	DataStructureEventSystem event(1920,1080);
-	Init_Allegro::initialize(1920,1080);
+	DataStructureEventSystem event(1280,720);
+	Init_Allegro::initialize(1280,720);
 	Init_Allegro::startTimers();
 	event.startGame();
 
