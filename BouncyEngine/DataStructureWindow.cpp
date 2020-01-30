@@ -56,39 +56,50 @@ int DataStructureWindow::getElementsToGenerate()
 	return elementsToCreate;
 }
 
-void DataStructureWindow::drawBars()
+int DataStructureWindow::drawBars(int currentEvent)
 {
-	
-	if (currentCreatedElement < elementsToCreate)
+	if (doneSorting == true and keyBoardEvent::returnEvent().type == ALLEGRO_EVENT_KEY_UP)
 	{
-		int randomNumber = rand() % 1000 + 1;
-		std::cout << randomNumber << std::endl;
-		int calculatedHeight = normalize(1, 1000, 0, Init_Allegro::height, randomNumber);
-		visualBarsInfo* vbi = new visualBarsInfo(randomNumber, currentXStart, calculatedWidth, calculatedHeight);
-		list->insert(vbi);
-		
-		visualBarsInfo* currentBar;
-		while (currentBar = list->getNext())
-		{
-			currentBar->drawBar();
-		}
-		list->resetNext();
-		
-		
-		currentCreatedElement++;
-		currentXStart += calculatedWidth;
+		list->deleteList();
+		currentCreatedElement = 0;
+		currentXStart = 0;
+		doneSorting = false;
+		//elementsToCreate = 0;
+		return 3;
 	}
-	if(currentCreatedElement >= elementsToCreate)
-	{
-		visualBarsInfo* currentBar;
-		while (currentBar = list->getNext())
+	if (keyBoardEvent::returnEvent().type == ALLEGRO_EVENT_TIMER)
+		if (currentCreatedElement < elementsToCreate)
 		{
-			currentBar->drawBar();
-		}
-		list->resetNext();
-		list->bubbleSortVisual();
+			int randomNumber = rand() % 1000 + 1;
+			int calculatedHeight = normalize(1, 1000, 0, Init_Allegro::height, randomNumber);
+			visualBarsInfo* vbi = new visualBarsInfo(randomNumber, currentXStart, calculatedWidth, calculatedHeight);
+			list->insert(vbi);
 		
-	}
+			visualBarsInfo* currentBar;
+			while (currentBar = list->getNext())
+			{
+				currentBar->drawBar();
+			}
+			list->resetNext();
+		
+			currentCreatedElement++;
+			currentXStart += calculatedWidth;
+		}
+		else if(currentCreatedElement >= elementsToCreate and doneSorting == false)
+		{
+			list->bubbleSortVisual();	
+			doneSorting = true;
+		}
+		else if (doneSorting == true)	
+		{
+			visualBarsInfo* currentBar;
+			while (currentBar = list->getNext())
+			{
+				currentBar->drawBar();
+			}
+			list->resetNext();
+		}
+		return currentEvent;
 }
 int DataStructureWindow::normalize(int min, int max, int normalizedMin, int normalizedMax, int value)
 {

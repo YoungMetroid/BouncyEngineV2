@@ -16,23 +16,11 @@ public:
 	void printList();
 	void bubbleSort();
 	void bubbleSortVisual();
-	void deleteList();
 	void resetNext();
 	void swapAndDraw(node<T>*, node<T>*, visualBarsInfo*, visualBarsInfo*);
-	void swap(node<T>*, node<T>*);
 	T getNext();
 
 };
-template<class T>
-void linkedList<T>::deleteList()
-{
-	while (anchor != nullptr)
-	{
-		next = anchor->getNode();
-		delete anchor;
-		anchor = next;
-	}
-}
 template<class T>
 void linkedList<T>::resetNext()
 {
@@ -91,24 +79,21 @@ void linkedList<T>::printList()
 template<class T>
 void linkedList<T>::bubbleSort()
 {
-	bool swapped = false;
-
-	for (int currentLoop = 0; currentLoop < counter; currentLoop++)
+	for (int i = 0; i < counter; i++)
 	{
 		node<T>* first = anchor;
 		node<T>* second = first->getNode();
-		while (second != nullptr)
+		for (int j = i + 1; j < counter; j++)
 		{
 			if (first->getData() > second->getData())
 			{
-				swap(first, second);
-				swapped = true;
+				int temp = first->getData();
+				first->setInfo(second->getData());
+				second->setInfo(temp);
 			}
 			first = first->getNode();
 			second = second->getNode();
 		}
-		if (!swapped) break;
-		swapped = false;
 	}
 }
 template<class T>
@@ -116,35 +101,33 @@ void linkedList<T>::bubbleSortVisual()
 {
 	if (typeid(anchor->getData()) == typeid(visualBarsInfo*))
 	{
-		bool swapped = false;
-		for (int currentLoop = 0; currentLoop < counter; currentLoop++)
+		for (int i = 0; i < counter; i++)
 		{
 			node<T>* first = anchor;
 			node<T>* second = first->getNode();
-			while(second != nullptr)
+			visualBarsInfo* firstTemp = static_cast<visualBarsInfo*>(first->getData());
+			visualBarsInfo* secondTemp = static_cast<visualBarsInfo*>(second->getData());
+			for (int j = i + 1; j < counter; j++)
 			{
-				visualBarsInfo* firstTemp = static_cast<visualBarsInfo*>(first->getData());
-				visualBarsInfo* secondTemp = static_cast<visualBarsInfo*>(second->getData());
 				if (firstTemp->getvalue() > secondTemp->getvalue())
 				{
 					swapAndDraw(first, second, firstTemp, secondTemp);
-					swapped = true;
 				}
-				firstTemp = nullptr;
-				secondTemp = nullptr;
 				first = first->getNode();
+				firstTemp = static_cast<visualBarsInfo*>(first->getData());
 				second = second->getNode();
+				if (second == nullptr) return;
+				secondTemp = static_cast<visualBarsInfo*>(second->getData());
 			}
-			if (!swapped) break;
-			swapped = false;
 		}
 	}
 }
 template<class T>
-void linkedList<T>::swapAndDraw(node<T>* aNode, node<T>* bNode, visualBarsInfo* aInfo, visualBarsInfo* bInfo)
+void linkedList<T>::swapAndDraw(node<T>* aNode, node<T>*bNode, visualBarsInfo* aInfo, visualBarsInfo* bInfo)
 {
 	aInfo->clearBar();
 	bInfo->clearBar();
+
 	visualBarsInfo* tempInfo = aInfo;
 	aInfo = bInfo;
 	bInfo = tempInfo;
@@ -153,20 +136,15 @@ void linkedList<T>::swapAndDraw(node<T>* aNode, node<T>* bNode, visualBarsInfo* 
 	aInfo->xposition = bInfo->xposition;
 	bInfo->xposition = tempPosition;
 
-
 	aNode->setInfo(aInfo);
 	bNode->setInfo(bInfo);
 
 	aInfo->drawBar();
 	bInfo->drawBar();
 	al_flip_display();
+
+
 }
-template<class T>
-void linkedList<T>::swap(node<T>* aNode, node<T>* bNode)
-{
-	T temp = aNode->getData();
-	aNode->setInfo(bNode->getData());
-	bNode->setInfo(temp);
-}
+
 
 

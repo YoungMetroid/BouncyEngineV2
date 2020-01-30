@@ -21,8 +21,7 @@ DataStructureEventSystem::DataStructureEventSystem(int width, int height) :Event
              sortingAlgorithmSelectionMenu();
              break; 
          case 4:
-             if (keyBoardEvent::returnEvent().type == ALLEGRO_EVENT_TIMER)
-                 menuWindow->drawBars();
+                 currentEvent = menuWindow->drawBars(currentEvent);
                  al_flip_display();
              
              break;

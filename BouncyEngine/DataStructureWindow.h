@@ -13,8 +13,8 @@ private:
 	int currentCreatedElement;
 	std::string algorithmName;
 	int currentXStart;
-	int currentXEnd;
 	int calculatedWidth;
+	bool doneSorting = false;
 	linkedList<visualBarsInfo*>* list = new linkedList<visualBarsInfo*>();
 
 public:
@@ -25,7 +25,7 @@ public:
 	int getElementsToGenerate();
 	int normalize(int min, int max, int normalizedMin, int normalizedMax, int value);
 	bool checkUserInput(short,long lowerLimit, long upperLimit);
-	void drawBars();
+	int drawBars(int);
 	std::string getName();
 };
 
