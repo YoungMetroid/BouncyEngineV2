@@ -20,10 +20,13 @@ int main()
 	numberList.insert(15);
 	numberList.insert(16);
 	numberList.insert(14);
-	numberList.insert(13);
-	numberList.insert(12);
+	numberList.insert(17);
+	numberList.insert(18);
+	numberList.insert(19);
 	numberList.insert(11);
-	numberList.bubbleSort();
+	numberList.insert(18);
+	numberList.insert(1);
+	numberList.insertionSort();
 	numberList.printList();
 
 	linkedList<visualBarsInfo*>* list = new linkedList<visualBarsInfo*>();

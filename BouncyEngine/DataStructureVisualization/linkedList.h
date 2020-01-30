@@ -16,10 +16,14 @@ public:
 	void printList();
 	void bubbleSort();
 	void bubbleSortVisual();
+	void insertionSort();
+	void insertionSortVisual();
 	void deleteList();
 	void resetNext();
 	void swapAndDraw(node<T>*, node<T>*, visualBarsInfo*, visualBarsInfo*);
 	void swap(node<T>*, node<T>*);
+	void moveNode(node<T>*);
+	void moveNodeVisual(node<T>*);
 	T getNext();
 
 };
@@ -28,7 +32,7 @@ void linkedList<T>::deleteList()
 {
 	while (anchor != nullptr)
 	{
-		next = anchor->getNode();
+		next = anchor->getNextNode();
 		delete anchor;
 		anchor = next;
 	}
@@ -46,7 +50,7 @@ T linkedList<T>::getNext()
 		return nullptr;
 	}
 	T value = next->getData();
-	next = next->getNode();
+	next = next->getNextNode();
 	return value;
 }
 template<class T>
@@ -72,7 +76,7 @@ void linkedList<T>::insert(T data)
 		node<T> *newNode = new node<T>();
 		newNode->setInfo(data);
 		last->nextNode = newNode;
-		last = last->getNode();	
+		last = last->getNextNode();	
 		counter++;
 	}
 }
@@ -84,7 +88,7 @@ void linkedList<T>::printList()
 	while (tempNode != nullptr)
 	{
 		tempNode->printInfo();
-		tempNode = tempNode->getNode();
+		tempNode = tempNode->getNextNode();
 	}
 	std::cout << "Counter: " << counter << std::endl;
 }
@@ -120,7 +124,7 @@ void linkedList<T>::bubbleSortVisual()
 		for (int currentLoop = 0; currentLoop < counter; currentLoop++)
 		{
 			node<T>* first = anchor;
-			node<T>* second = first->getNode();
+			node<T>* second = first->getNextNode();
 			while(second != nullptr)
 			{
 				visualBarsInfo* firstTemp = static_cast<visualBarsInfo*>(first->getData());
@@ -132,11 +136,70 @@ void linkedList<T>::bubbleSortVisual()
 				}
 				firstTemp = nullptr;
 				secondTemp = nullptr;
-				first = first->getNode();
-				second = second->getNode();
+				first = first->getNextNode();
+				second = second->getNextNode();
 			}
 			if (!swapped) break;
 			swapped = false;
+		}
+	}
+}
+template<class T>
+void linkedList<T>::insertionSortVisual()
+{
+	if (typeid(anchor->getData()) == typeid(visualBarsInfo*))
+	{
+		bool repositioned = false;
+		for (int currentLoop = 0; currentLoop < counter; currentLoop++)
+		{
+			node<T>* first = anchor;
+			node<T>* second = first->getNextNode();
+			while (second != nullptr)
+			{
+				visualBarsInfo* firstTemp = static_cast<visualBarsInfo*>(first->getData());
+				visualBarsInfo* secondTemp = static_cast<visualBarsInfo*>(second->getData());
+				if (firstTemp->getvalue() > secondTemp->getvalue())
+				{
+					// 3->1->4
+					// 3->4
+					//moveNode(1)
+					//result should be 1->3->4
+					first->setNext(second->getNextNode());
+					moveNode(second);
+					repositioned = true;
+				}
+				firstTemp = nullptr;
+				secondTemp = nullptr;
+				first = first->getNextNode();
+				second = second->getNextNode();
+			}
+			if (!repositioned) break;
+			repositioned = false;
+		}
+	}
+
+}
+template<class T>
+void linkedList<T>::insertionSort()
+{
+	node<T>* first = anchor;
+	node<T>* second = first->getNextNode();
+	while (second != nullptr)
+	{
+		if (first->getData()> second->getData())
+		{
+			// 3->1->4
+			// 3->4
+			//moveNode(1)
+			//result should be 1->3->4
+			first->setNext(second->getNextNode());
+			moveNode(second);
+			second = first->getNextNode();
+		}
+		else 
+		{
+			first = first->getNextNode();
+			second = second->getNextNode();
 		}
 	}
 }
@@ -168,5 +231,58 @@ void linkedList<T>::swap(node<T>* aNode, node<T>* bNode)
 	aNode->setInfo(bNode->getData());
 	bNode->setInfo(temp);
 }
-
+template<class T>
+void linkedList<T>::moveNodeVisual(node<T>* node_To_Move)
+{
+		node<T>* currentNode = anchor;
+		node<T>* previousNode = anchor;
+		visualBarsInfo* currentNodeInfo = static_cast<visualBarsInfo*>(currentNode->getData());
+		visualBarsInfo* nodeToMoveInfo = static_cast<visualBarsInfo*>(node_To_Move->getData());
+		if (nodeToMoveInfo->getvalue() < currentNodeInfo->getvalue())
+		{
+			node_To_Move->setNext(anchor);
+			anchor = node_To_Move;
+		}
+		else
+		{
+			while (currentNode != nullptr)
+			{
+				currentNodeInfo = static_cast<visualBarsInfo*>(currentNode->getData());
+				if (currentNode->getNextNode() == nullptr || 
+					nodeToMoveInfo->getvalue() < 
+					static_cast<visualBarsInfo*>(currentNode->getNextNode()->getData())->getvalue())
+				{
+					nodeToMoveInfo->setNext(currentNode->getNextNode());
+					currentNode->setNext(nodeToMoveInfo);
+					break;
+				}
+				currentNode = currentNode->getNextNode();
+			}
+		}
+}
+template<class T>
+void linkedList<T>::moveNode(node<T>* nodeToMoveInfo)
+{
+	node<T>* currentNode = anchor;
+	node<T>* previousNode = anchor;
+	if (nodeToMoveInfo->getData() < currentNode->getData())
+	{
+		nodeToMoveInfo->setNext(anchor);
+		anchor = nodeToMoveInfo;
+	}
+	else
+	{
+		while (currentNode != nullptr)
+		{
+			if (currentNode->getNextNode() == nullptr ||
+				nodeToMoveInfo->getData() < currentNode->getNextNode()->getData())
+			{
+				nodeToMoveInfo->setNext(currentNode->getNextNode());
+				currentNode->setNext(nodeToMoveInfo);
+				break;
+			}
+			currentNode = currentNode->getNextNode();
+		}
+	}
+}
 

@@ -8,13 +8,13 @@ private:
 public:
 	node();
 	node<T> *nextNode;
+	node<T>* previousNode;
 	T getData();
-	void setNext(T);
+	void setNext(node<T>*);
 	void setInfo(T);
 	void printInfo();
-	node<T>* getNode();
-
-	
+	node<T>* getNextNode();
+	node<T>* getPreviousNode();
 };
 
 template <class T>
@@ -23,9 +23,9 @@ node<T>::node()
 	this->nextNode = nullptr;
 }
 template <class T>
-void node<T>::setNext(T data)
+void node<T>::setNext(node<T>* nextNode)
 {
-	nextNode = new node(data);
+	this->nextNode = nextNode;
 }
 template <class T>
 void node<T>::setInfo(T data)
@@ -33,9 +33,14 @@ void node<T>::setInfo(T data)
 	this->data = data;
 }
 template <class T>
-node<T>* node<T>::getNode()
+node<T>* node<T>::getNextNode()
 {
 	return nextNode;
+}
+template <class T>
+node<T>* node<T>::getPreviousNode()
+{
+	return previousNode;
 }
 template<class T>
 T node<T>::getData()
