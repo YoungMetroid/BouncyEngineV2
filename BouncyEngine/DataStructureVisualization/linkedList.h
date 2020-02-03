@@ -1,6 +1,7 @@
 #pragma once
 #include "node.h"
 #include "../Init_Allegro.h"
+#include <thread>
 template <class T>
 class linkedList
 {
@@ -18,12 +19,14 @@ public:
 	void bubbleSortVisual();
 	void insertionSort();
 	void insertionSortVisual();
+	void selectionSortVisual();
+	void shellSortVisual();
 	void deleteList();
 	void resetNext();
 	void swapAndDraw(node<T>*, node<T>*, visualBarsInfo*, visualBarsInfo*);
 	void swap(node<T>*, node<T>*);
 	void moveNode(node<T>*);
-	void moveNodeVisual(node<T>*);
+	void insertOrdered(node<T>*);
 	T getNext();
 
 };
@@ -59,7 +62,6 @@ linkedList<T>::linkedList()
 	anchor = nullptr;
 	last = nullptr;
 }
-
 template<class T>
 void linkedList<T>::insert(T data)
 {
@@ -75,7 +77,8 @@ void linkedList<T>::insert(T data)
 	{
 		node<T> *newNode = new node<T>();
 		newNode->setInfo(data);
-		last->nextNode = newNode;
+		last->setNext(newNode);
+		newNode->setPrevious(last);
 		last = last->getNextNode();	
 		counter++;
 	}
@@ -132,6 +135,7 @@ void linkedList<T>::bubbleSortVisual()
 				if (firstTemp->getvalue() > secondTemp->getvalue())
 				{
 					swapAndDraw(first, second, firstTemp, secondTemp);
+					//std::this_thread::sleep_for(std::chrono::milliseconds(5));
 					swapped = true;
 				}
 				firstTemp = nullptr;
@@ -149,35 +153,22 @@ void linkedList<T>::insertionSortVisual()
 {
 	if (typeid(anchor->getData()) == typeid(visualBarsInfo*))
 	{
-		bool repositioned = false;
-		for (int currentLoop = 0; currentLoop < counter; currentLoop++)
+		node<T>* first = anchor;
+		node<T>* second = first->getNextNode();
+		while (second != nullptr)
 		{
-			node<T>* first = anchor;
-			node<T>* second = first->getNextNode();
-			while (second != nullptr)
+			visualBarsInfo* firstTemp = static_cast<visualBarsInfo*>(first->getData());
+			visualBarsInfo* secondTemp = static_cast<visualBarsInfo*>(second->getData());
+			if (firstTemp->getvalue() > secondTemp->getvalue())
 			{
-				visualBarsInfo* firstTemp = static_cast<visualBarsInfo*>(first->getData());
-				visualBarsInfo* secondTemp = static_cast<visualBarsInfo*>(second->getData());
-				if (firstTemp->getvalue() > secondTemp->getvalue())
-				{
-					// 3->1->4
-					// 3->4
-					//moveNode(1)
-					//result should be 1->3->4
-					first->setNext(second->getNextNode());
-					moveNode(second);
-					repositioned = true;
-				}
-				firstTemp = nullptr;
-				secondTemp = nullptr;
-				first = first->getNextNode();
-				second = second->getNextNode();
+				insertOrdered(second);
 			}
-			if (!repositioned) break;
-			repositioned = false;
+			firstTemp = nullptr;
+			secondTemp = nullptr;
+			first = first->getNextNode();
+			second = second->getNextNode();
 		}
 	}
-
 }
 template<class T>
 void linkedList<T>::insertionSort()
@@ -188,10 +179,6 @@ void linkedList<T>::insertionSort()
 	{
 		if (first->getData()> second->getData())
 		{
-			// 3->1->4
-			// 3->4
-			//moveNode(1)
-			//result should be 1->3->4
 			first->setNext(second->getNextNode());
 			moveNode(second);
 			second = first->getNextNode();
@@ -200,6 +187,41 @@ void linkedList<T>::insertionSort()
 		{
 			first = first->getNextNode();
 			second = second->getNextNode();
+		}
+	}
+}
+template<class T>
+void linkedList<T>::selectionSortVisual()
+{
+	if (typeid(anchor->getData()) == typeid(visualBarsInfo*))
+	{
+		bool doSwap = false;
+		node<T>* pivot = anchor;
+		while (pivot != nullptr)
+		{
+			node<T>* firstNode = pivot;
+			node<T>* currentNode = pivot->getNextNode();
+			visualBarsInfo* lowestValue = static_cast<visualBarsInfo*>(firstNode->getData());
+			while (currentNode != nullptr)
+			{
+				visualBarsInfo* currentItem = static_cast<visualBarsInfo*>(currentNode->getData());
+				if (lowestValue->getvalue() > currentItem->getvalue())
+				{
+					firstNode = currentNode;
+					lowestValue = static_cast<visualBarsInfo*>(firstNode->getData());
+					doSwap = true;
+				}
+				currentNode = currentNode->getNextNode();
+			}
+			if (doSwap)
+			{
+				visualBarsInfo* pivotInfo = static_cast<visualBarsInfo*>(pivot->getData());
+
+				swapAndDraw(pivot, firstNode, pivotInfo, lowestValue);
+				std::this_thread::sleep_for(std::chrono::milliseconds(5));
+				doSwap = false;
+			}
+			pivot = pivot->getNextNode();
 		}
 	}
 }
@@ -232,33 +254,23 @@ void linkedList<T>::swap(node<T>* aNode, node<T>* bNode)
 	bNode->setInfo(temp);
 }
 template<class T>
-void linkedList<T>::moveNodeVisual(node<T>* node_To_Move)
+void linkedList<T>::insertOrdered(node<T>* node_To_Move)
 {
-		node<T>* currentNode = anchor;
-		node<T>* previousNode = anchor;
+	node<T>* previousNode = node_To_Move->getPreviousNode();
+	node<T>* currentNode = node_To_Move;
+	while (previousNode != nullptr)
+	{
 		visualBarsInfo* currentNodeInfo = static_cast<visualBarsInfo*>(currentNode->getData());
-		visualBarsInfo* nodeToMoveInfo = static_cast<visualBarsInfo*>(node_To_Move->getData());
-		if (nodeToMoveInfo->getvalue() < currentNodeInfo->getvalue())
+		visualBarsInfo* previousNodeInfo = static_cast<visualBarsInfo*>(previousNode->getData());
+		if (currentNodeInfo->getvalue() < previousNodeInfo->getvalue())
 		{
-			node_To_Move->setNext(anchor);
-			anchor = node_To_Move;
+			swapAndDraw(previousNode, currentNode, previousNodeInfo, currentNodeInfo);
+			//std::this_thread::sleep_for(std::chrono::milliseconds(3));
+			currentNode = currentNode->getPreviousNode();
+			previousNode = previousNode->getPreviousNode();
 		}
-		else
-		{
-			while (currentNode != nullptr)
-			{
-				currentNodeInfo = static_cast<visualBarsInfo*>(currentNode->getData());
-				if (currentNode->getNextNode() == nullptr || 
-					nodeToMoveInfo->getvalue() < 
-					static_cast<visualBarsInfo*>(currentNode->getNextNode()->getData())->getvalue())
-				{
-					nodeToMoveInfo->setNext(currentNode->getNextNode());
-					currentNode->setNext(nodeToMoveInfo);
-					break;
-				}
-				currentNode = currentNode->getNextNode();
-			}
-		}
+		else break;
+	}
 }
 template<class T>
 void linkedList<T>::moveNode(node<T>* nodeToMoveInfo)
@@ -285,4 +297,3 @@ void linkedList<T>::moveNode(node<T>* nodeToMoveInfo)
 		}
 	}
 }
-

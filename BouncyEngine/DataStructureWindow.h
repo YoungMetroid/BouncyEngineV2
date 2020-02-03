@@ -25,7 +25,9 @@ public:
 	int getElementsToGenerate();
 	int normalize(int min, int max, int normalizedMin, int normalizedMax, int value);
 	bool checkUserInput(short,long lowerLimit, long upperLimit);
-	int drawBars(int);
+	int drawBars(int,int);
+	void drawList();
+	
 	std::string getName();
 };
 

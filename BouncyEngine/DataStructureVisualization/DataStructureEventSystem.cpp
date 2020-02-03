@@ -6,35 +6,35 @@ DataStructureEventSystem::DataStructureEventSystem(int width, int height) :Event
  void DataStructureEventSystem::startGame()
  {
      srand(time(NULL));
-     while (!gameLoop)
-     {
-         keyBoardEvent::createEvent();
-         clearScreen();
-         switch (currentEvent)
-         {
-         case 0:
-             if (menuWindow == nullptr)
-                 menuWindow = new DataStructureWindow("TextWindow",100,0,0, width - (width / 4), height / 3);
-             menuEvent();
-             break;
-         case 3:
-             sortingAlgorithmSelectionMenu();
-             break; 
-         case 4:
-                 currentEvent = menuWindow->drawBars(currentEvent);
-                 al_flip_display();
-             
-             break;
-         case 5:
-             std::cout << "Insert Sort" << std::endl;
-             break;
-         case 6:
-             std::cout << "Selection Sort" << std::endl;
-             break;
-         case 7: std::cout << "Shell Sort" << std::endl;
-             break;
-
-         }
+    while (!gameLoop)
+    {
+        keyBoardEvent::createEvent();
+        clearScreen();
+        switch (currentEvent)
+        {
+            case 0:
+                if (menuWindow == nullptr)
+                    menuWindow = new DataStructureWindow("TextWindow",100,0,0, width - (width / 4), height / 3);
+                menuEvent();
+                break;
+            case 3:
+                sortingAlgorithmSelectionMenu();
+                break; 
+            case 4:
+                currentEvent = menuWindow->drawBars(currentEvent,4);
+                al_flip_display();
+            break;
+            case 5:
+                currentEvent = menuWindow->drawBars(currentEvent, 5);
+                al_flip_display();
+            break;
+            case 6:
+                currentEvent = menuWindow->drawBars(currentEvent, 6);
+                al_flip_display();
+            break;
+            case 7: std::cout << "Shell Sort" << std::endl;
+            break;
+        }
      }
  }
  void DataStructureEventSystem::sortingAlgorithmSelectionMenu()

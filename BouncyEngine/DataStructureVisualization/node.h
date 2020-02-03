@@ -5,16 +5,19 @@ class node
 {
 private:
 	T data;
+	node<T>* nextNode;
+	node<T>* previousNode;
 public:
 	node();
-	node<T> *nextNode;
-	node<T>* previousNode;
+	
 	T getData();
 	void setNext(node<T>*);
+	void setPrevious(node<T>*);
 	void setInfo(T);
 	void printInfo();
 	node<T>* getNextNode();
 	node<T>* getPreviousNode();
+
 };
 
 template <class T>
@@ -26,6 +29,11 @@ template <class T>
 void node<T>::setNext(node<T>* nextNode)
 {
 	this->nextNode = nextNode;
+}
+template<class T>
+void node<T>::setPrevious(node<T>* previousNode)
+{
+	this->previousNode = previousNode;
 }
 template <class T>
 void node<T>::setInfo(T data)

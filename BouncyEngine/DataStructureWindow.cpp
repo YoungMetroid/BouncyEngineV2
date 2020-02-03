@@ -56,7 +56,7 @@ int DataStructureWindow::getElementsToGenerate()
 	return elementsToCreate;
 }
 
-int DataStructureWindow::drawBars(int currentEvent)
+int DataStructureWindow::drawBars(int currentEvent, int sortingAlgorithm)
 {
 	if (doneSorting == true and keyBoardEvent::returnEvent().type == ALLEGRO_EVENT_KEY_UP)
 	{
@@ -74,20 +74,31 @@ int DataStructureWindow::drawBars(int currentEvent)
 			int calculatedHeight = normalize(1, 1000, 0, Init_Allegro::height, randomNumber);
 			visualBarsInfo* vbi = new visualBarsInfo(randomNumber, currentXStart, calculatedWidth, calculatedHeight);
 			list->insert(vbi);
-		
-			visualBarsInfo* currentBar;
-			while (currentBar = list->getNext())
-			{
-				currentBar->drawBar();
-			}
-			list->resetNext();
-		
+			drawList();
+
 			currentCreatedElement++;
 			currentXStart += calculatedWidth;
 		}
 		else if(currentCreatedElement >= elementsToCreate and doneSorting == false)
 		{
-			list->bubbleSortVisual();	
+			switch (sortingAlgorithm)
+			{
+			case 4:
+				drawList();
+				list->bubbleSortVisual();
+				break;
+			case 5:
+				drawList();
+				list->insertionSortVisual();
+				break;
+			case 6: 
+				drawList();
+				list->selectionSortVisual();
+				break;
+			default:
+				list->bubbleSortVisual();
+				break;
+			}
 			doneSorting = true;
 		}
 		else if (doneSorting == true)	
@@ -109,5 +120,14 @@ int DataStructureWindow::normalize(int min, int max, int normalizedMin, int norm
 	double operation4 = ((double)operation2 / (double)operation3);
 	int operation5 = floor(operation1 * operation4) + (double)min;
 	return operation5;
+}
+void DataStructureWindow::drawList()
+{
+	visualBarsInfo* currentBar;
+	while (currentBar = list->getNext())
+	{
+		currentBar->drawBar();
+	}
+	list->resetNext();
 }
  
