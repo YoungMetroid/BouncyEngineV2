@@ -2,6 +2,7 @@
 #include "node.h"
 #include "../Init_Allegro.h"
 #include <thread>
+#include <math.h>
 template <class T>
 class linkedList
 {
@@ -223,6 +224,48 @@ void linkedList<T>::selectionSortVisual()
 			}
 			pivot = pivot->getNextNode();
 		}
+	}
+}
+template<class T>
+void linkedList<T>::shellSortVisual()
+{
+	if (typeid(anchor->getData()) == typeid(visualBarsInfo*))
+	{
+		std::vector<node<T>*> arrayPointers;
+		node<T>* temp = anchor;
+		while (temp != nullptr)
+		{
+			arrayPointers.push_back(temp);
+			temp = temp->getNextNode();
+		}
+		bool orderAgain = false;
+		double dividen = 3;
+		double arraySize = arrayPointers.size()-1;
+		double factor = (2.0 / 3.0);
+		for (int dif = arraySize * factor; dif > 0; dif = dif * factor)
+		{
+			for (int limit = arraySize - dif, counter = 0; counter <= limit; counter++)
+			{
+				node<T>* temp1 = arrayPointers[counter];
+				node<T>* temp2 = arrayPointers[counter+dif];
+				visualBarsInfo* first = static_cast<visualBarsInfo*>(temp1->getData());
+				visualBarsInfo* second = static_cast<visualBarsInfo*>(temp2->getData());
+				if (first->getvalue() > second->getvalue())
+				{
+					swapAndDraw(arrayPointers[counter], arrayPointers[counter + dif], first, second);
+					std::this_thread::sleep_for(std::chrono::milliseconds(10));
+					orderAgain = true;
+				}
+			}
+			float calculate = dif * factor;
+			if (orderAgain == true and (calculate) <= 1)
+			{
+				dif+=1;
+			}
+			orderAgain = false;
+		}
+
+
 	}
 }
 template<class T>

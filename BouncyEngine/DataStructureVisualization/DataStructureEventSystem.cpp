@@ -32,7 +32,9 @@ DataStructureEventSystem::DataStructureEventSystem(int width, int height) :Event
                 currentEvent = menuWindow->drawBars(currentEvent, 6);
                 al_flip_display();
             break;
-            case 7: std::cout << "Shell Sort" << std::endl;
+            case 7:
+                currentEvent = menuWindow->drawBars(currentEvent, 7);
+                al_flip_display();
             break;
         }
      }

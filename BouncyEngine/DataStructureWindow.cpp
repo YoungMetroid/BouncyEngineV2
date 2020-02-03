@@ -95,6 +95,10 @@ int DataStructureWindow::drawBars(int currentEvent, int sortingAlgorithm)
 				drawList();
 				list->selectionSortVisual();
 				break;
+			case 7:
+				drawList();
+				list->shellSortVisual();
+				break;
 			default:
 				list->bubbleSortVisual();
 				break;
