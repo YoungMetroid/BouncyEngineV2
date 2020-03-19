@@ -1,11 +1,12 @@
 #include "DataStructureEventSystem.h"
+#include "../playerTemplate.h"
 
 DataStructureEventSystem::DataStructureEventSystem(int width, int height) :Event_System(width, height)
 {
 }
  void DataStructureEventSystem::startGame()
  {
-     srand(time(NULL));
+    srand(time(NULL));
     while (!gameLoop)
     {
         keyBoardEvent::createEvent();
@@ -36,6 +37,10 @@ DataStructureEventSystem::DataStructureEventSystem(int width, int height) :Event
                 currentEvent = menuWindow->drawBars(currentEvent, 7);
                 al_flip_display();
             break;
+            case 8:
+                playerTemplate narrator = playerTemplate("text");
+                narrator.loadText();
+                break;
         }
      }
  }
@@ -51,14 +56,23 @@ DataStructureEventSystem::DataStructureEventSystem(int width, int height) :Event
         DataStructureWindow* window3 = new DataStructureWindow("Selection", 6, 0, height*.25, width/2, height*.25);
         std::cout << "Window4" << std::endl;
         DataStructureWindow* window4 = new DataStructureWindow("Shell Sort", 7, (width / 2), height*.25, width/2, height*.25);
+        std::cout << "Window5" << std::endl;
+        DataStructureWindow* window5 = new DataStructureWindow("MergeSort", 8, 0, height * .50, width / 2, height * .25);
+        std::cout << "Window6" << std::endl;
+        DataStructureWindow* window6 = new DataStructureWindow("QuickSort", 9, width/2, height * .50, width / 2, height * .25);
         window1->loadText("Bubble Sort");
         window2->loadText("Insertion Sort");
         window3->loadText("Selection Sort");
         window4->loadText("Shell Sort");
+        window5->loadText("MergeSort");
+        window6->loadText("QuickSort");
+
         windowsList.push_back(window1);
         windowsList.push_back(window2);
         windowsList.push_back(window3);
         windowsList.push_back(window4);
+        windowsList.push_back(window5);
+        windowsList.push_back(window6);
      }
      if (keyBoardEvent::returnEvent().type == ALLEGRO_EVENT_MOUSE_AXES)
      {
@@ -98,7 +112,7 @@ DataStructureEventSystem::DataStructureEventSystem(int width, int height) :Event
      { 
          menuWindow->nextTextSignal();
      }
-     if (menuWindow->getDoneDrawingAllText())
+     if (menuWindow->isLastParagraph())
      {
          if (menuWindow->checkUserInput(menuWindow->number, 1, width))
          {

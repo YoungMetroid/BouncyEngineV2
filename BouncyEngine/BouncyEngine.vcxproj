@@ -169,9 +169,11 @@
     <ClCompile Include="DataStructureVisualization\DataStructureEventSystem.cpp" />
     <ClCompile Include="DataStructureWindow.cpp" />
     <ClCompile Include="Event_System.cpp" />
+    <ClCompile Include="filesUtility.cpp" />
     <ClCompile Include="Init_Allegro.cpp" />
     <ClCompile Include="keyBoardEvent.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="playerTemplate.cpp" />
     <ClCompile Include="TextWindow.cpp" />
     <ClCompile Include="visualBarsInfo.cpp" />
     <ClCompile Include="Window.cpp" />
@@ -183,8 +185,10 @@
     <ClInclude Include="DataStructureVisualization\node.h" />
     <ClInclude Include="DataStructureWindow.h" />
     <ClInclude Include="Event_System.h" />
+    <ClInclude Include="filesUtility.h" />
     <ClInclude Include="Init_Allegro.h" />
     <ClInclude Include="keyBoardEvent.h" />
+    <ClInclude Include="playerTemplate.h" />
     <ClInclude Include="TextWindow.h" />
     <ClInclude Include="visualBarsInfo.h" />
     <ClInclude Include="Window.h" />

@@ -68,18 +68,22 @@ int DataStructureWindow::drawBars(int currentEvent, int sortingAlgorithm)
 		return 3;
 	}
 	if (keyBoardEvent::returnEvent().type == ALLEGRO_EVENT_TIMER)
-		if (currentCreatedElement < elementsToCreate)
+		while (currentCreatedElement < elementsToCreate)
 		{
+
+			al_clear_to_color(al_map_rgb(0, 0, 0));
 			int randomNumber = rand() % 1000 + 1;
 			int calculatedHeight = normalize(1, 1000, 0, Init_Allegro::height, randomNumber);
 			visualBarsInfo* vbi = new visualBarsInfo(randomNumber, currentXStart, calculatedWidth, calculatedHeight);
 			list->insert(vbi);
 			drawList();
+			std::this_thread::sleep_for(std::chrono::milliseconds(3));
+			al_flip_display();
 
 			currentCreatedElement++;
 			currentXStart += calculatedWidth;
 		}
-		else if(currentCreatedElement >= elementsToCreate and doneSorting == false)
+		if(currentCreatedElement >= elementsToCreate and doneSorting == false)
 		{
 			switch (sortingAlgorithm)
 			{
@@ -103,6 +107,7 @@ int DataStructureWindow::drawBars(int currentEvent, int sortingAlgorithm)
 				list->bubbleSortVisual();
 				break;
 			}
+			al_flush_event_queue(Init_Allegro::EVENTQUEUE);
 			doneSorting = true;
 		}
 		else if (doneSorting == true)	

@@ -47,7 +47,6 @@ public:
 		int endingXCoordinate, int endingYCoordinate);
 	~TextWindow();
 	std::string getUserInput();
-	bool getDoneDrawingAllText();
 	bool getDoneDrawingParagraph();
 	bool isLastParagraph();
 	void drawText(int,int);

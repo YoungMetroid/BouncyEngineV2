@@ -13,7 +13,9 @@ TextWindow::TextWindow(int startingXCoordinate, int startingYCoordinate,
 	this->endingYCoordinate = endingYCoordinate;
 
 	text.push_back({ { { "Please enter the size of"} ,{"the linkedList to generate" }, {"third line"} } });
-	text.push_back({ { { "Second Paragraph"} ,{"the linkedList to generate" }, {"third line"} } });
+	//text.push_back({ { { "Second Paragraph"} ,{"the linkedList to generate" }, {"third line"} } });
+	//text.push_back({ { { "Third Paragraph"} ,{"the linkedList to generate" }, {"third line"} } });
+	//text.push_back({ { { "Fourth Paragraph"} ,{"the linkedList to generate" }, {"third line"} } });
 	std::cout << "StartingYCoordinate: " << this->startingYCoordinate << std::endl;
 	std::cout << "EndingXCoordinate: " << this->endingXCoordinate << std::endl;
 	std::cout << "EndingYCoordinate: " << this->endingYCoordinate << std::endl;
@@ -85,8 +87,7 @@ void TextWindow::drawText(int xOffSet, int yOffSet)
 				doneDrawingParagragh = true;
 				if (paragraghCount >= text.size()-1 && rowCount == text[paragraghCount].size())
 				{
-					lastParagragh = true;
-					doneDrawingAllText = true;
+					lastParagragh = true;					
 				}
 			}
 		}
@@ -138,10 +139,6 @@ void TextWindow::drawUserInput()
 		Init_Allegro::FONT, al_map_rgb(255, 255, 255),
 		this->startingXCoordinate, this->startingYCoordinate + 70,
 		ALLEGRO_ALIGN_LEFT, userInput.c_str());
-}
-bool TextWindow::getDoneDrawingAllText()
-{
-	return doneDrawingAllText;
 }
 bool TextWindow::getDoneDrawingParagraph()
 {

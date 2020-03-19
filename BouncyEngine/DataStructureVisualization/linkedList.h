@@ -253,7 +253,7 @@ void linkedList<T>::shellSortVisual()
 				if (first->getvalue() > second->getvalue())
 				{
 					swapAndDraw(arrayPointers[counter], arrayPointers[counter + dif], first, second);
-					std::this_thread::sleep_for(std::chrono::milliseconds(10));
+					std::this_thread::sleep_for(std::chrono::milliseconds(5));
 					orderAgain = true;
 				}
 			}
