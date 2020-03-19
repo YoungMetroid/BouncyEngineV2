@@ -11,6 +11,8 @@ public:
 	playerTemplate(const char* filePath);
 	~playerTemplate();
 	void loadText();
+	void setWindowCoordinate(int, int, int, int);
+	std::vector<std::vector<std::string>> getText();
 
 	
 };

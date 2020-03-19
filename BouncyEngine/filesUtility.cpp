@@ -14,13 +14,16 @@ void filesUtility::readFile()
 {
 	try
 	{
-		file.open("E:\\Narrative.txt");
+		file.open("Narration.txt");
+		if (!file.is_open())
+		{
+			throw myException();
+		}
 		std::string line;
 		std::vector<std::string> paragraph;
 		while (std::getline(file, line))
 		{
-			
-			if(!line.empty() and !line.find("#"))
+			if(!line.empty() and line.find("#"))
 				paragraph.push_back(line);
 
 			if (paragraph.size() >= 3)
@@ -29,9 +32,14 @@ void filesUtility::readFile()
 				paragraph.clear();
 			}
 		}
-
+		if (paragraph.size() > 0)
+			allLines.push_back(paragraph);
 	}
-	catch (myException ex)
+	catch (myException & e)
+	{
+		std::cout << e.what() << std::endl;
+	}
+	catch (std::exception& ex)
 	{
 		throw(ex);
 	}

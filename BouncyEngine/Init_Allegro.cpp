@@ -56,8 +56,6 @@ void Init_Allegro::initialize(int xWidth, int yHeight)
 	al_register_event_source(EVENTQUEUE, al_get_keyboard_event_source());
 	al_register_event_source(EVENTQUEUE, al_get_display_event_source(DISPLAY));
 	al_register_event_source(EVENTQUEUE, al_get_mouse_event_source());
-
-	
 }
 void Init_Allegro::startTimers(void)
 {

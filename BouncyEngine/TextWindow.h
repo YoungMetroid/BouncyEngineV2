@@ -9,7 +9,7 @@
 #include <string>
 #include <vector>
 
-class TextWindow:Window
+class TextWindow:public Window
 {
 private:
 	bool doneDrawingAllText = false;
@@ -58,6 +58,7 @@ public:
 	int getEvent();
 	void loadImage(const char*);
 	void loadText(std::string);
+	void loadParagraphs(std::vector<std::vector<std::string>>);
 	bool mouseInArea(int,int);
 	void resetEvent();
 	void setEvent(int event);

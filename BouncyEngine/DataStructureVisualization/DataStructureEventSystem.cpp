@@ -40,6 +40,8 @@ DataStructureEventSystem::DataStructureEventSystem(int width, int height) :Event
             case 8:
                 playerTemplate narrator = playerTemplate("text");
                 narrator.loadText();
+                menuWindow->loadParagraphs(narrator.getText());
+                currentEvent = 0;
                 break;
         }
      }

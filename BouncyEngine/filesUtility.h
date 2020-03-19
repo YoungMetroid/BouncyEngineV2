@@ -5,9 +5,9 @@
 #include <iostream>
 #include <fstream>
 
-class myException
+class myException:public _exception
 {
-	virtual const char* what() const throw()
+public:const char* what() const throw()
 	{
 		return "Unable to open file";
 	}
@@ -19,6 +19,7 @@ protected:
 private:
 	const char* filePath;
 	std::ifstream file;
+	std::ofstream createFile;
 
 public:
 	std::vector< std::vector<std::string>> allLines;

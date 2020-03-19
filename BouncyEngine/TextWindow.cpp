@@ -13,9 +13,6 @@ TextWindow::TextWindow(int startingXCoordinate, int startingYCoordinate,
 	this->endingYCoordinate = endingYCoordinate;
 
 	text.push_back({ { { "Please enter the size of"} ,{"the linkedList to generate" }, {"third line"} } });
-	//text.push_back({ { { "Second Paragraph"} ,{"the linkedList to generate" }, {"third line"} } });
-	//text.push_back({ { { "Third Paragraph"} ,{"the linkedList to generate" }, {"third line"} } });
-	//text.push_back({ { { "Fourth Paragraph"} ,{"the linkedList to generate" }, {"third line"} } });
 	std::cout << "StartingYCoordinate: " << this->startingYCoordinate << std::endl;
 	std::cout << "EndingXCoordinate: " << this->endingXCoordinate << std::endl;
 	std::cout << "EndingYCoordinate: " << this->endingYCoordinate << std::endl;
@@ -34,6 +31,8 @@ void TextWindow::drawWindow()
 	al_draw_scaled_bitmap(windowFrame, 0,0, imageWidth, imageHeight, startingXCoordinate,
 		startingYCoordinate, endingXCoordinate, endingYCoordinate, NULL);
 }
+//This will draw the next character in the text Vector every time the specified frame 
+//occurs
 void TextWindow::drawText(int xOffSet, int yOffSet) 
 {
 		if (text.size() > 0 && paragraghCount < text.size())
@@ -90,8 +89,11 @@ void TextWindow::drawText(int xOffSet, int yOffSet)
 					lastParagragh = true;					
 				}
 			}
+
 		}
 }
+//This will draw the current drawn text on every possible frame
+//This makes makes sure that there is no blinking effect
 void TextWindow::drawCurrentText(int xOffSet, int yOffSet)
 {
 	switch (rowCount)
@@ -125,6 +127,8 @@ void TextWindow::drawCurrentText(int xOffSet, int yOffSet)
 		break;
 	}
 }
+
+//This draws the whole paragraph
 void TextWindow::drawInstantText()
 {
 	al_draw_text(Init_Allegro::FONT, al_map_rgb(red, green, blue), 
@@ -211,6 +215,10 @@ void TextWindow::loadText(std::string text)
 {
 	loadedText = text;
 }
+void TextWindow::loadParagraphs(std::vector<std::vector<std::string>> paragraphs)
+{
+	this->text = paragraphs;
+}
 bool TextWindow::mouseInArea(int x, int y)
 {
 	if(x >= startingXCoordinate &&
@@ -228,13 +236,17 @@ void TextWindow::nextTextSignal()
 {
 	rowCount = 0;
 	paragraghCount++;
-	wait = false;
 	doneDrawingParagragh = false;
 	printText.clear();
 }
 void TextWindow::resetEvent()
 {
 	userInput.clear();
+	lastParagragh = false;
+	doneDrawingParagragh = false;
+	rowCount = 0;
+	paragraghCount = 0;
+	printText.clear();
 }
 void TextWindow::setEvent(int event)
 {
