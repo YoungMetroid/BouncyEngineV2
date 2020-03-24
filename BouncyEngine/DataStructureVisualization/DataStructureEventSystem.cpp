@@ -38,7 +38,7 @@ DataStructureEventSystem::DataStructureEventSystem(int width, int height) :Event
                 al_flip_display();
             break;
             case 8:
-                playerTemplate narrator = playerTemplate("text");
+                playerTemplate narrator = playerTemplate("","text");
                 narrator.loadText();
                 menuWindow->loadParagraphs(narrator.getText());
                 currentEvent = 0;

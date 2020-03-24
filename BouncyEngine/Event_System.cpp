@@ -6,6 +6,9 @@ Event_System::Event_System(int width,int height):gameLoop(false),currentEvent(0)
 	textWindow = nullptr;
 	this->width = width;
 	this->height = height;
+	protagonist = new playerTemplate("Felipe", "");
+	protagonist->setCharacterCoordinates(50, 50);
+	//characters.push_back(protagonist);
 }
 
 Event_System::~Event_System()
@@ -14,75 +17,87 @@ Event_System::~Event_System()
 
 void Event_System::startGame(void)
 {
+	
 	while(!gameLoop)
 	{
 		keyBoardEvent::createEvent();
-		
+		clearScreen();
 		switch (currentEvent)
 		{
 			case 0: 
 				mainGame();
 				break;
-			case 1:
-				textWindow->getUserInput();
-				if (keyBoardEvent::returnEvent().type == ALLEGRO_EVENT_TIMER)
-				{
-					al_clear_to_color(al_map_rgb(0, 0, 0));
-					textWindow->drawWindow();
-					textWindow->drawUserInput();
-					al_flip_display();
-				}
-				currentEvent = textWindow->getEvent();
-				if (currentEvent == Init_Allegro::allEvents::normal)
- 					delete textWindow;
-				break;
-			case 2:
-				if (keyBoardEvent::returnEvent().type == ALLEGRO_EVENT_KEY_UP)
-				{
-					keyPressed = keyBoardEvent::returnEvent().keyboard.keycode;
-				}
-				if (keyBoardEvent::returnEvent().type == ALLEGRO_EVENT_TIMER)
-				{
-					if (keyBoardEvent::returnEvent().timer.source == Init_Allegro::FRAMETIMER)
-					{	
-						currentEvent = textWindow->getEvent();
-						if (currentEvent == Init_Allegro::allEvents::normal)
-							{
-							keyPressed = 0;
-						}
-					}
-					al_clear_to_color(al_map_rgb(0, 0, 0));
-					//textWindow->drawText();
-					al_flip_display();
-				}
-				break;
 		}
 	}
 }
-void Event_System::createName(void)
-{
-	textWindow->drawWindow();
-	textWindow->getUserInput();
-}
 void Event_System::mainGame(void)
 {
+	if(keyBoardEvent::returnEvent().type ==ALLEGRO_EVENT_MOUSE_AXES)
+	{	
+	}
+	if (keyBoardEvent::returnEvent().type == ALLEGRO_EVENT_KEY_DOWN)
+	{
+		switch (keyBoardEvent::returnEvent().keyboard.keycode)
+		{
+		case ALLEGRO_KEY_A:
+			keys[0] = true;
+			break;
+		case ALLEGRO_KEY_S:
+			keys[1] = true;
+			break;
+		case ALLEGRO_KEY_D:
+			keys[2] = true;
+			break;
+		case ALLEGRO_KEY_W:
+			keys[3] = true;
+			break;
+		}
+	}
 	if(keyBoardEvent::returnEvent().type == ALLEGRO_EVENT_KEY_UP)
 		switch (keyBoardEvent::returnEvent().keyboard.keycode)
 		{
 			case ALLEGRO_KEY_ESCAPE:
 				gameLoop = true;
 				break;
-			case ALLEGRO_KEY_ENTER:
-				currentEvent = Init_Allegro::allEvents::menu;
-				textWindow = new TextWindow(width / 4, height/4, width - (width / 4), height/3);
-				break;
 			case ALLEGRO_KEY_A:
-				currentEvent = Init_Allegro::allEvents::dialog;
-				textWindow = new TextWindow(width / 4, height / 4, width - (width / 4), height / 3);
-				textWindow->setEvent(currentEvent);
+				keys[0] = false;
 				break;
-			default:
-				std::cout << "No Input" << std::endl;
+			case ALLEGRO_KEY_S:
+				keys[1] = false;
+				break;
+			case ALLEGRO_KEY_D:
+				keys[2] = false;
+				break;
+			case ALLEGRO_KEY_W:
+				keys[3] = false;
 				break;
 		}
+
+	
+
+	if (keyBoardEvent::returnEvent().type == ALLEGRO_EVENT_TIMER)
+	{
+		if (keys[0])
+			protagonist->moveLeft();
+		if (keys[1])
+			protagonist->moveDown();
+		if (keys[2])
+			protagonist->moveRight();
+		if (keys[3])
+			protagonist->moveUp();
+
+		protagonist->drawRectangle();
+		for (playerTemplate* player : characters)
+		{
+			player->drawRectangle();
+		}
+		al_flip_display();
+	}
+}
+void Event_System::clearScreen()
+{
+	if (keyBoardEvent::returnEvent().type == ALLEGRO_EVENT_TIMER)
+	{
+		al_clear_to_color(al_map_rgb(0, 0, 0));
+	}
 }

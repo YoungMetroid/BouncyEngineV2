@@ -44,6 +44,7 @@ void Init_Allegro::initialize(int xWidth, int yHeight)
 	al_init_ttf_addon();// initialize the ttf (True Type Font) addon
 	al_init_primitives_addon();
 	al_init_image_addon();
+	al_hide_mouse_cursor(DISPLAY);
 	FONT = al_load_ttf_font(MANAFONT, 18, NULL);
 
 	EVENTQUEUE = al_create_event_queue();

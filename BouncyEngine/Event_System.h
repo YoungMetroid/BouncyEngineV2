@@ -5,7 +5,7 @@
 #include "TextWindow.h"
 #include <iostream>
 #include <string>
-
+#include "playerTemplate.h"
 
 
 using namespace std;
@@ -19,13 +19,18 @@ protected:
 	int keyPressed = 0;
 	
 	TextWindow* textWindow;
+
+	
+	playerTemplate* protagonist;
+	std::vector<playerTemplate*> characters;
+	bool keys[4] = { 0 };
 	
 public:
 	Event_System(int,int);
 	~Event_System();
 	void startGame(void);
-	void createName(void);
 	void mainGame(void);
+	void clearScreen(void);
 	
 	
 };
