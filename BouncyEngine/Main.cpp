@@ -15,8 +15,9 @@ int main()
 	std::string::size_type pos = std::string(buff).find_last_of("\\/");
 	std::cout << std::string(buff).substr(0, pos);
 		
+
+	Init_Allegro::initialize(1280, 720);
 	Event_System event(1280,720);
-	Init_Allegro::initialize(1280,720);
 	Init_Allegro::startTimers();
 	event.startGame();
 

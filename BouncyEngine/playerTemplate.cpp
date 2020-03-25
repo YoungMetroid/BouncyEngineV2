@@ -5,6 +5,7 @@ playerTemplate::playerTemplate(const char* name, const char* filePath):TextWindo
 {
 	playerX = 0;
 	playerY = 0;
+	playerColor = al_map_rgb(50, 50, 50);
 	this->name = name;
 	fileReader = new filesUtility(filePath);
 }
@@ -34,6 +35,10 @@ void playerTemplate::moveDown()
 {
 	playerY++;
 }
+void playerTemplate::setColor(unsigned char red, unsigned char green, unsigned char blue)
+{
+	playerColor = al_map_rgb(red, green, blue);
+}
 void  playerTemplate::setWindowCoordinate(int x1, int x2, int y1, int y2)
 {
 	this->startingXCoordinate = x1;
@@ -49,7 +54,10 @@ void playerTemplate::setCharacterCoordinates(int x, int y)
 void playerTemplate::drawRectangle()
 {
 	//Testing the character drawing
-	al_draw_filled_rectangle(this->playerX, this->playerY, this->playerX+100, this->playerY+100, al_map_rgb(50, 50, 50));
+	al_draw_filled_rectangle(
+		playerX, playerY, 
+		playerX+100, playerY+100, 
+		playerColor);
 }
 std::vector<std::vector<std::string>> playerTemplate::getText()
 {

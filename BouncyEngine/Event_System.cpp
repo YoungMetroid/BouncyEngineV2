@@ -7,8 +7,21 @@ Event_System::Event_System(int width,int height):gameLoop(false),currentEvent(0)
 	this->width = width;
 	this->height = height;
 	protagonist = new playerTemplate("Felipe", "");
+	protagonist->setColor(50, 100, 50);
 	protagonist->setCharacterCoordinates(50, 50);
-	//characters.push_back(protagonist);
+
+	playerTemplate* pt = new playerTemplate("Stranger", "");
+	pt->setColor(50, 100, 200);
+	pt->setCharacterCoordinates(200, 200);
+	
+	playerTemplate* pt2 = new playerTemplate("Stranger2", "");
+	pt2->setColor(20, 20, 20);
+	pt2->setCharacterCoordinates(500, 300);
+
+	characters.push_back(pt);
+	characters.push_back(pt2);
+
+
 }
 
 Event_System::~Event_System()
@@ -72,9 +85,6 @@ void Event_System::mainGame(void)
 				keys[3] = false;
 				break;
 		}
-
-	
-
 	if (keyBoardEvent::returnEvent().type == ALLEGRO_EVENT_TIMER)
 	{
 		if (keys[0])

@@ -43,6 +43,8 @@ void Init_Allegro::initialize(int xWidth, int yHeight)
 	al_init_font_addon(); // initialize the font addon
 	al_init_ttf_addon();// initialize the ttf (True Type Font) addon
 	al_init_primitives_addon();
+
+	ALLEGRO_COLOR testColor = al_map_rgb(50, 50, 50);
 	al_init_image_addon();
 	al_hide_mouse_cursor(DISPLAY);
 	FONT = al_load_ttf_font(MANAFONT, 18, NULL);

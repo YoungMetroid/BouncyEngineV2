@@ -103,7 +103,6 @@ DataStructureEventSystem::DataStructureEventSystem(int width, int height) :Event
              textWindow->drawWindow();
              textWindow->drawInstantText();
          }
-
         al_flip_display();
      }
 
