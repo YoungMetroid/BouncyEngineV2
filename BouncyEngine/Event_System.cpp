@@ -9,18 +9,26 @@ Event_System::Event_System(int width,int height):gameLoop(false),currentEvent(0)
 	protagonist = new playerTemplate("Felipe", "");
 	protagonist->setColor(50, 100, 50);
 	protagonist->setCharacterCoordinates(50, 50);
+	protagonist->setCharacterWidth_Height(20, 20);
 
-	playerTemplate* pt = new playerTemplate("Stranger", "");
-	pt->setColor(50, 100, 200);
-	pt->setCharacterCoordinates(200, 200);
+	for (int i = 1; i < 30; i++)
+	{
+		for (int j = 1; j < 10; j++)
+		{
+			playerTemplate* pt = new playerTemplate("Stranger", "");
+			short red = rand() % 255 + 1;
+			short green = rand() % 255 + 1;;
+			short blue = rand() % 255 + 1;;
+			pt->setColor(red, green, blue);
+			pt->setCharacterCoordinates((50*i) , (50*j));
+			pt->setCharacterWidth_Height(20, 20);
+			characters.push_back(pt);
+		}
+	}
 	
-	playerTemplate* pt2 = new playerTemplate("Stranger2", "");
-	pt2->setColor(20, 20, 20);
-	pt2->setCharacterCoordinates(500, 300);
 
-	characters.push_back(pt);
-	characters.push_back(pt2);
 
+	
 
 }
 
@@ -99,6 +107,7 @@ void Event_System::mainGame(void)
 		protagonist->drawRectangle();
 		for (playerTemplate* player : characters)
 		{
+			collisionSystem(*player);
 			player->drawRectangle();
 		}
 		al_flip_display();
@@ -110,4 +119,62 @@ void Event_System::clearScreen()
 	{
 		al_clear_to_color(al_map_rgb(0, 0, 0));
 	}
+}
+void Event_System::collisionSystem(playerTemplate& player)
+{
+	//Check Left Side Collision
+	if (protagonist->getXPosition() == player.getXPosition() + player.getPlayerWidth() and 
+		((
+			protagonist->getYPosition() >= player.getYPosition() and 
+			protagonist->getYPosition() <= player.getYPosition()+ player.getPlayerHeight()
+		) 
+		or
+		(
+			protagonist->getYPosition() + protagonist->getPlayerHeight() >= player.getYPosition() and 
+			protagonist->getYPosition() + protagonist->getPlayerHeight() <= player.getYPosition() + player.getPlayerHeight()
+		))
+	   )
+		protagonist->autoSetX(true);
+	//Check Right Side Collision
+
+	if (protagonist->getXPosition() + protagonist->getPlayerWidth() == player.getXPosition() and
+		((
+			protagonist->getYPosition() >= player.getYPosition() and
+			protagonist->getYPosition() <= player.getYPosition() + player.getPlayerHeight()
+			)
+			or
+			(
+				protagonist->getYPosition() + protagonist->getPlayerHeight() >= player.getYPosition() and
+				protagonist->getYPosition() + protagonist->getPlayerHeight() <= player.getYPosition() + player.getPlayerHeight()
+				))
+		)
+		protagonist->autoSetX(false);
+
+	//Check Top Side Collision
+	if (protagonist->getYPosition() == player.getYPosition() + player.getPlayerHeight() and
+		((
+			protagonist->getXPosition() >= player.getXPosition() and
+			protagonist->getXPosition() <= player.getXPosition() + player.getPlayerWidth()
+			)
+			or
+			(
+				protagonist->getXPosition() + protagonist->getPlayerWidth() >= player.getXPosition() and
+				protagonist->getXPosition() + protagonist->getPlayerWidth() <= player.getXPosition() + player.getPlayerWidth()
+				))
+		)
+		protagonist->autoSetY(true);
+	//Check Bottom Side Collision
+
+	if (protagonist->getYPosition() + protagonist->getPlayerHeight() == player.getYPosition() and
+		((
+			protagonist->getXPosition() >= player.getXPosition() and
+			protagonist->getXPosition() <= player.getXPosition() + player.getPlayerWidth()
+			)
+			or
+			(
+				protagonist->getXPosition() + protagonist->getPlayerWidth() >= player.getXPosition() and
+				protagonist->getXPosition() + protagonist->getPlayerWidth() <= player.getXPosition() + player.getPlayerWidth()
+				))
+		)
+		protagonist->autoSetY(false);
 }

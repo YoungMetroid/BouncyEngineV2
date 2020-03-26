@@ -31,6 +31,7 @@ public:
 	void startGame(void);
 	void mainGame(void);
 	void clearScreen(void);
+	void collisionSystem(playerTemplate&);
 	
 	
 };
