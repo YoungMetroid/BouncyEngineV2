@@ -1,6 +1,7 @@
 #include "keyBoardEvent.h"
 
 ALLEGRO_EVENT keyBoardEvent::event;
+bool keyBoardEvent::keys[];
 
 keyBoardEvent::keyBoardEvent()
 {
@@ -30,4 +31,14 @@ bool keyBoardEvent::isEnteredPressed()
 		return true;
 	}
 	return false;
+}
+void keyBoardEvent::UpdateKeys(bool keyPressed_UnPressed)
+{
+	for (int keyCounter = 0; keyCounter < 100; keyCounter++)
+	{
+		if (event.keyboard.keycode == keyCounter)
+		{
+			keys[keyCounter] = keyPressed_UnPressed;
+		}
+	}
 }

@@ -89,7 +89,6 @@ void TextWindow::drawText(int xOffSet, int yOffSet)
 					lastParagragh = true;					
 				}
 			}
-
 		}
 }
 //This will draw the current drawn text on every possible frame

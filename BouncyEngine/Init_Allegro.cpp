@@ -46,7 +46,7 @@ void Init_Allegro::initialize(int xWidth, int yHeight)
 
 	ALLEGRO_COLOR testColor = al_map_rgb(50, 50, 50);
 	al_init_image_addon();
-	al_hide_mouse_cursor(DISPLAY);
+	//al_hide_mouse_cursor(DISPLAY);
 	FONT = al_load_ttf_font(MANAFONT, 18, NULL);
 
 	EVENTQUEUE = al_create_event_queue();

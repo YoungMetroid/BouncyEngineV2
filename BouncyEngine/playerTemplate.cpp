@@ -11,6 +11,7 @@ playerTemplate::playerTemplate(const char* name, const char* filePath):TextWindo
 	playerColor = al_map_rgb(50, 50, 50);
 	this->name = name;
 	fileReader = new filesUtility(filePath);
+	fileReader->readFile();
 }
 
 playerTemplate::~playerTemplate()

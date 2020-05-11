@@ -19,11 +19,10 @@ protected:
 	int keyPressed = 0;
 	
 	TextWindow* textWindow;
-
+	int eventHandler = 0;
 	
 	playerTemplate* protagonist;
 	std::vector<playerTemplate*> characters;
-	bool keys[4] = { 0 };
 	
 public:
 	Event_System(int,int);
@@ -32,7 +31,9 @@ public:
 	void mainGame(void);
 	void clearScreen(void);
 	void collisionSystem(playerTemplate&);
-	
-	
+	void playerMovement();
+	void textEvent();
+	void drawAllCharacters();
+	void characterInteraction(playerTemplate&, int);
 };
 

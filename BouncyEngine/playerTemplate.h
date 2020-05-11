@@ -9,6 +9,7 @@ protected:
 	int characterWidth;
 	int characterHeight;
 	int regularMoveSpeed;
+	
 	ALLEGRO_COLOR playerColor;
 	const char* name;
 	filesUtility *fileReader;
@@ -34,5 +35,6 @@ public:
 	int getPlayerWidth();
 	int getPlayerHeight();
 	std::vector<std::vector<std::string>> getText();
+	int facingDirection = 1;
 };
 

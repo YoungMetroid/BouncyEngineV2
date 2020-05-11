@@ -14,7 +14,7 @@ void filesUtility::readFile()
 {
 	try
 	{
-		file.open("Narration.txt");
+		file.open(filePath);
 		if (!file.is_open())
 		{
 			throw myException();
